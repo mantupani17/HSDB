@@ -1,0 +1,254 @@
+<%- include('../components/header'); -%>
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    body {
+      background: #fff;
+    }
+
+    .input-field input[type=date]:focus + label,
+    .input-field input[type=text]:focus + label,
+    .input-field input[type=email]:focus + label,
+    .input-field input[type=password]:focus + label {
+      color: #e91e63;
+    }
+
+    .input-field input[type=date]:focus,
+    .input-field input[type=text]:focus,
+    .input-field input[type=email]:focus,
+    .input-field input[type=password]:focus {
+      border-bottom: 2px solid #e91e63;
+      box-shadow: none;
+    }
+  </style>
+  <div class="section"></div>
+  <main>
+    <center>
+      
+      <div class="section"></div>
+      <div class="section"></div>
+
+      <div class="container">
+        <div class="z-depth-1 grey lighten-4 row register-container" style="">
+            <div class='row'>
+                <div class='col s12 register-header'>
+                    Please Register
+                </div>
+            </div>
+          <form class="register" name="self-registration">
+
+            <div class='row'>
+                <div class='input-field register col s12'>
+                    <input class='validate' type='text' name='uName' id='u-name' />
+                    <label for='u-name'>Enter your name</label>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='input-field register col s12'>
+                    <input class='validate' type='text' name='mobile' id='mobile' />
+                    <label for='mobile'>Enter your mobile number</label>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='input-field register col s12'>
+                    <input class='validate' type='date' name='dob' id='dob' />
+                    <label for='dob'>Enter your mobile number</label>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class="input-field col s12">
+                    <select name="sex" id="u-sex">
+                        <option value="" disabled selected>Choose gender</option>
+                        <option value="M">Male</option>
+                        <option value="F">Femle</option>
+                        <option value="O">Other</option>
+                    </select>
+                    <label>Materialize Select</label>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='input-field register col s12'>
+                    <input class='validate' type='text' name='height' id='height' />
+                    <label for='height'>Enter your height</label>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='input-field register col s12'>
+                    <input class='validate' type='text' name='weight' id='weight' />
+                    <label for='weight'>Enter your weight</label>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class="input-field col s12">
+                    <select name="bloodgp" id="b-group">
+                        <option value="" disabled selected>Choose blood group</option>
+                        <option value="o+">O+</option>
+                        <option value="o+">O-</option>
+                        <option value="a+">A+</option>
+                        <option value="b+">B+</option>
+                        <option value="ab+">AB+</option>
+                        <option value="ab-">AB-</option>
+                        <option value="a-">A-</option>
+                        <option value="b-">B-</option>
+                    </select>
+                    <label>Materialize Select</label>
+                </div>
+            </div>
+
+
+            <div class='row'>
+              <div class='input-field register col s12'>
+                <input class='validate' type='email' name='email' id='email' />
+                <label for='email'>Enter your email</label>
+              </div>
+            </div>
+
+            <div class='row'>
+                <div class='input-field register col s12'>
+                    <input class='validate' type='password' name='password' id='password' />
+                    <label for='password'>Enter your password</label>
+                </div>
+                <label style='float: right;'>
+                        <a class='pink-text' href='/login'><b>Login</b></a>
+                </label>
+            </div>
+
+            <br />
+            <center>
+              <div class='row'>
+                <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Register</button>
+              </div>
+            </center>
+          </form>
+        </div>
+      </div>
+      <a href="#!">Create account</a>
+    </center>
+
+    <div class="section"></div>
+    <div class="section"></div>
+  </main>
+  <%- include('../components/footer'); -%>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/materialize.min.js"></script>
+    <script src="/js/materialize.js"></script>
+    <script src="/js/jquery.validation.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/sweetalert.min.js"></script>
+    <script src="/ajax/myApp.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#b-group').formSelect();
+            $('#u-sex').formSelect();
+            var task = {    
+                initUserRegFrm:function(){
+                    $('form[name="self-registration"]').validate({
+                        rules:{
+                            uName:{
+                                required:true,
+                                maxlength:50,
+                                minlength:1
+                            },
+                            sex:{
+                                required:true                    
+                            },
+                            dob:{
+                                required:true
+                            },
+                            password:{
+                                required:true,
+                                maxlength:8,
+                                minlength:4
+                            } ,
+                            mobile:{
+                                required:true,
+                                maxlength:10,
+                                minlength:10
+                            },
+                            height:{
+                                required:true,
+                                number:true,
+                                minlength:1
+                            },    
+                            weight:{
+                                required:true,
+                                number:true,
+                                minlength:1
+                            },
+                            bloodgp:{
+                                required:true
+                            } 
+                        },
+                        messages:{
+                            uName:{
+                                required:"User name is required",
+                                maxlength:"User name should be within 50 characters",
+                                minlength:"User name should not be blank"
+                            },
+                            sex:{
+                                required:"User gender required"
+                            },
+                            dob:{
+                                required:"DOB is required"
+                            },
+                            actorDbp:{
+                                required:"Password is required",
+                                maxlength:"Password should be within 50 characters",
+                                minlength:"Password should not be blank"
+                            },
+                            height:{
+                                required:'Height is required',
+                                minlength:'Height should not be blank',
+                                number:'Height should not be text'
+                            },
+                            weight:{
+                                required:'Weight is required',
+                                minlength:'Weight should not be blank',
+                                number:'Weight should not be text'
+                            },
+                            bloodgp:{
+                                required:'Select a blood group'
+                            }
+
+                        },
+
+                        errorElement:"div",
+                        errorPlacement: function(error, element) {
+                                var placement = $(element).data('error');
+                                if (placement) {
+                                    $(placement).append(error)
+                                } else {
+                                    error.insertAfter(element);
+                                }
+                        },
+                        submitHandler:function(form){
+                            var formData = $('form[name="self-registration"]').serializeObject();
+                            console.log(formData);
+                            app.selfRegister(formData).done(function(response){
+                                if(response.status == true){
+                                    // console.log(response.message);
+                                    M.toast(response.message,  4000, '');
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+            task.initUserRegFrm();
+        });
+    </script>
+  </html>

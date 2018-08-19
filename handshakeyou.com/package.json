@@ -1,0 +1,19 @@
+{
+  "name": "handshakeyou.com",
+  "version": "1.0.0",
+  "description": "mantain huge amount of data",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mantu pani",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "*",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.6.1",
+    "express": "*",
+    "express-session": "^1.15.6",
+    "mongoose": "*"
+  }
+}

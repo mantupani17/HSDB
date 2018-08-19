@@ -1,0 +1,17 @@
+<header>
+    <nav>
+        <div class="nav-wrapper handshake-color">
+            <a href="/" class="brand-logo left">Handshake you</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <%if (locals.user) { %>
+                <li><a href="#" id="actors"><%= user.name %></a></li>
+                <li><a href="/authorize/logout" id="actors">Logout</a></li>
+                <li><a href="#" id="actors">Menu</a></li>
+            <% } else { %>
+                <li><a href="/login" id="movies">Login</a></li>
+                <li><a href="/register" id="actors">Register</a></li>
+            <% } %>
+            </ul>
+        </div>
+    </nav>
+</header>
