@@ -1,11 +1,11 @@
-const LoginHelpers = require('../helpers/AuthHelper');
+const AuthHelpers = require('../helpers/AuthHelper');
 
 module.exports.login = function(req, res){
     const result = {status:false,redirectTo:''}
     const email = req.query.email;
     const password = req.query.password;
     const where = {'bio.email':email, password:password};
-    LoginHelpers.authenticate(where ,function(err,user){
+    AuthHelpers.authenticate(where ,function(err,user){
         if(err){
             console.log(err);
             return res.status(500).send();
