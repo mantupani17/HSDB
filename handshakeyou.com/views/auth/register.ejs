@@ -1,159 +1,111 @@
 <%- include('../components/header'); -%>
-  <style>
-    body {
-      display: flex;
-      min-height: 100vh;
-      flex-direction: column;
-    }
+<section class="gd-product padding-default hk-margin-top-100">
+     <center>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div id="gd_contact">
+                                <div id="message"></div>
+                                <div class="gd-contact-form">
+                                    <form class="register" name="self-registration">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <i class="fas fa-user"></i>
+                                                <input class='input-style' type='text' name='uName' id='u-name' placeholder="Name" />
+                                            </div>
 
-    main {
-      flex: 1 0 auto;
-    }
+                                            <div class="col-md-6">
+                                                <i class="fas fa-mobile"></i>                                            
+                                                <input class='input-style' type='text' name='mobile' id='mobile' placeholder="Mobile" />
+                                            </div>
 
-    body {
-      background: #fff;
-    }
+                                            <div class="col-md-6">
+                                                <i class="fas fa-calendar"></i>            
+                                                <input class='input-style' type='date' name='dob' id='dob' placeholder="DOB" />
+                                            </div>
 
-    .input-field input[type=date]:focus + label,
-    .input-field input[type=text]:focus + label,
-    .input-field input[type=email]:focus + label,
-    .input-field input[type=password]:focus + label {
-      color: #e91e63;
-    }
+                                            <div class="col-md-6">
+                                                <select name="sex" class='form-control hk-selct-opt' id="u-sex">
+                                                    <option value="" disabled selected>Choose gender</option>
+                                                    <option value="M">Male</option>
+                                                    <option value="F">Femle</option>
+                                                    <option value="O">Other</option>
+                                                </select>
+                                            </div>
 
-    .input-field input[type=date]:focus,
-    .input-field input[type=text]:focus,
-    .input-field input[type=email]:focus,
-    .input-field input[type=password]:focus {
-      border-bottom: 2px solid #e91e63;
-      box-shadow: none;
-    }
-  </style>
-  <div class="section"></div>
-  <main>
-    <center>
-      
-      <div class="section"></div>
-      <div class="section"></div>
+                                            <div class="col-md-6">
+                                                <i class="fas fa-male"></i>            
+                                                <input class="input-style" type='text' name='height' id='height' placeholder="Height" />
+                                            </div>
 
-      <div class="container">
-        <div class="z-depth-1 grey lighten-4 row register-container" style="">
-            <div class='row'>
-                <div class='col s12 register-header'>
-                    Please Register
+                                            <div class="col-md-6">
+                                                <i class="fas fa-weight"></i>            
+                                                <input class="input-style" type='text' name='weight' id='weight' placeholder="Weight"/>
+                                            </div>
+                                            
+                                            <div class='col-md-6'>
+                                                <select name="bloodgp" class='form-control hk-selct-opt' id="b-group" style="margin-top: -5px;">
+                                                    <option value="" disabled selected>Choose blood group</option>
+                                                    <option value="o+">O+</option>
+                                                    <option value="o+">O-</option>
+                                                    <option value="a+">A+</option>
+                                                    <option value="b+">B+</option>
+                                                    <option value="ab+">AB+</option>
+                                                    <option value="ab-">AB-</option>
+                                                    <option value="a-">A-</option>
+                                                    <option value="b-">B-</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="col-md-6">
+                                                <i class="fas fa-at"></i>
+                                                <input name="email" id="email" class="input-style" placeholder="Email" type="text">
+                                            </div>
+                                            
+                                            <div class="col-md-6">
+                                              <i class="fas fa-key"></i>
+                                              <input name="password" id="password" class="input-style" placeholder="Password?" type="password">
+                                            </div>
+                                            <%if (locals.user) {
+                                                if(locals.user.roles.indexOf('Admin') > -1){ 
+                                            %>
+                                            <div class="col-md-6">
+                                                <select name="userType" class='form-control hk-selct-opt' id="userType" style="margin-top: -5px;">
+                                                    <option value="" disabled>Choose user type</option>
+                                                    <option value="User" selected>User</option>
+                                                    <option value="Trainer">Trainer</option>
+                                                    <option value="Owner">Owner</option>
+                                                    <option value="Admin">Admin</option>
+                                                </select>
+                                            </div>
+                                            <% } }%>
+                                            
+  
+
+                                            <div class="col-md-6">
+                                                <button type='submit' name='btn_login' class='btn'>Register</button>
+                                            </div>
+                                            <a href="/login">Login</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-          <form class="register" name="self-registration">
-
-            <div class='row'>
-                <div class='input-field register col s12'>
-                    <input class='validate' type='text' name='uName' id='u-name' />
-                    <label for='u-name'>Enter your name</label>
-                </div>
-            </div>
-
-            <div class='row'>
-                <div class='input-field register col s12'>
-                    <input class='validate' type='text' name='mobile' id='mobile' />
-                    <label for='mobile'>Enter your mobile number</label>
-                </div>
-            </div>
-
-            <div class='row'>
-                <div class='input-field register col s12'>
-                    <input class='validate' type='date' name='dob' id='dob' />
-                    <label for='dob'>Enter your mobile number</label>
-                </div>
-            </div>
-
-            <div class='row'>
-                <div class="input-field col s12">
-                    <select name="sex" id="u-sex">
-                        <option value="" disabled selected>Choose gender</option>
-                        <option value="M">Male</option>
-                        <option value="F">Femle</option>
-                        <option value="O">Other</option>
-                    </select>
-                    <label>Materialize Select</label>
-                </div>
-            </div>
-
-            <div class='row'>
-                <div class='input-field register col s12'>
-                    <input class='validate' type='text' name='height' id='height' />
-                    <label for='height'>Enter your height</label>
-                </div>
-            </div>
-
-            <div class='row'>
-                <div class='input-field register col s12'>
-                    <input class='validate' type='text' name='weight' id='weight' />
-                    <label for='weight'>Enter your weight</label>
-                </div>
-            </div>
-
-            <div class='row'>
-                <div class="input-field col s12">
-                    <select name="bloodgp" id="b-group">
-                        <option value="" disabled selected>Choose blood group</option>
-                        <option value="o+">O+</option>
-                        <option value="o+">O-</option>
-                        <option value="a+">A+</option>
-                        <option value="b+">B+</option>
-                        <option value="ab+">AB+</option>
-                        <option value="ab-">AB-</option>
-                        <option value="a-">A-</option>
-                        <option value="b-">B-</option>
-                    </select>
-                    <label>Materialize Select</label>
-                </div>
-            </div>
-
-
-            <div class='row'>
-              <div class='input-field register col s12'>
-                <input class='validate' type='email' name='email' id='email' />
-                <label for='email'>Enter your email</label>
-              </div>
-            </div>
-
-            <div class='row'>
-                <div class='input-field register col s12'>
-                    <input class='validate' type='password' name='password' id='password' />
-                    <label for='password'>Enter your password</label>
-                </div>
-                <label style='float: right;'>
-                        <a class='pink-text' href='/login'><b>Login</b></a>
-                </label>
-            </div>
-
-            <br />
-            <center>
-              <div class='row'>
-                <button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Register</button>
-              </div>
-            </center>
-          </form>
         </div>
-      </div>
-      <a href="#!">Create account</a>
     </center>
-
-    <div class="section"></div>
-    <div class="section"></div>
-  </main>
-  <%- include('../components/footer'); -%>
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/materialize.min.js"></script>
-    <script src="/js/materialize.js"></script>
+</section> 
+<%- include('../components/footer'); -%>
     <script src="/js/jquery.validation.js"></script>
     <script src="/js/jquery.validate.min.js"></script>
     <script src="/js/sweetalert.min.js"></script>
     <script src="/ajax/myApp.js"></script>
     <script>
         $(document).ready(function(){
-            $('#b-group').formSelect();
-            $('#u-sex').formSelect();
             var task = {    
                 initUserRegFrm:function(){
                     $('form[name="self-registration"]').validate({
@@ -237,11 +189,10 @@
                         },
                         submitHandler:function(form){
                             var formData = $('form[name="self-registration"]').serializeObject();
-                            console.log(formData);
                             app.selfRegister(formData).done(function(response){
                                 if(response.status == true){
                                     // console.log(response.message);
-                                    M.toast(response.message,  4000, '');
+                                    $('form[name="self-registration"]').trigger('reset'); 
                                 }
                             });
                         }

@@ -1,13 +1,254 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title><%= title %></title>
-        <link href="/css/materialize.css" rel="stylesheet">
-        <link href="/css/materialize.min.css" rel="stylesheet">
-        <link href="/fonts/google.fonts.css" rel="stylesheet">
-        <link href="/css/jquery.dataTables.min.css" rel="stylesheet">
-        <link href="/css/style.css" rel="stylesheet">
-    </head>
-    <body>
-    <%- include('../frontend/master') -%>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title><%= title %></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/icon.png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- Fontawesome1-4.jpg CSS -->
+    <link rel="stylesheet" href="../css/fontawesome-all.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="../css/font/flaticon.css">
+    <!-- Owl CSS -->
+    <link rel="stylesheet" href="../css/owl.carousel.min.css">
+    <!-- Mean Menu CSS -->
+    <link rel="stylesheet" href="../css/meanmenu.css">
+    <!-- Magnific CSS -->
+    <link rel="stylesheet" href="../css/magnific-popup.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="../css/responsive.css">
+    <!-- Color CSS -->
+    <link class="change-color" rel="stylesheet" href="../css/colors/color.default.css">
+    <!-- Switcher CSS -->
+
+    
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/hk.css">
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+    <!-- Preloader Start Here -->
+    <div id="preloader"></div>
+    <!-- Preloader End Here -->
+
+    <!-- GD header start -->
+    <header class="gd-header-area gd-header hk-border-col">
+        <div class="gd-container-area">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-2 col-lg-2 col-md-2">
+                        <div class="logo">
+                            <a href="/"><span class="hk-logo-ch">Handshakeyou.com</span></a>
+                        </div>
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-10">
+                        <div class="top-contact-items row">
+                            <div class="top-contact col-lg-9 d-none d-md-block">
+                                <ul>
+                                    <li><a href="#"><i class="flaticon-note"></i>mantupani17@gmail.com</a></li>
+                                    <li><a href="#"><i class="flaticon-technology"></i> 7873160006</a></li>
+                                </ul>
+                            </div>
+                            <div class="top-social-link col-lg-3 d-none d-md-block">
+                                <ul>
+                                    <li><a href="#" title=""><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#" title=""><i class="fab fa-google-plus-g"></i></a></li>
+                                    <!-- <li><a href="#" title=""><i class="fab fa-linkedin-in"></i></a></li> -->
+                                    <!-- <li><a href="#" title=""><i class="fab fa-dribbble"></i></a></li> -->
+                                    <li><a href="#" title=""><i class="fab fa-twitter"></i></a></li>
+                                    <!-- <li><a href="#" title=""><i class="fab fa-tumblr"></i></a></li> -->
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="dg-main-menu text-right d-none d-md-block">
+                            <nav>
+                                <ul>
+                                    <li>
+                                        <a href="/home">HOME</a>
+                                    </li>
+                                    <li>
+                                        <a href="/about">ABOUT</a>
+                                    </li>
+                                    <li>
+                                        <a href="/contact">CONTACT</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">BLOG</a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="/blogs">BLOG DETAILS</a>
+                                            </li>
+                                        </ul>
+                                    </li>                          
+                                                             
+
+                                    <li>
+                                        <a href="classes.html">CLASSES</a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="/classes">CLASS DETAILS</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="events.html">EVENTS</a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="/events">EVENT DETAILS</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">TRAINER</a>
+                                        <ul class="submenu">                                          
+                                            <li>
+                                                <a href="/trainer-details">TRAINER DETAILS</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <%if (locals.user) {
+                                        if(locals.user.roles.indexOf('Admin') > -1){ 
+                                    %>
+                                    <li>
+                                        <a href="#">SETTING</a>
+                                        <ul class="submenu">
+                                            <li><a href="/add-gym">GYM SETTINGS</a></li>
+                                            <li><a href="/register">ADD NEW EVENT</a></li>
+                                            <li><a href="/register">ADD NEW COURSE/COURSE</a></li>
+                                            <li><a href="/register">ADD NEW DIET</a></li>
+                                            <li><a href="/register">ADD NEW TRAINER</a></li>
+                                            <li><a href="/trainers">ASSIGN TRAINER</a></li>
+                                        </ul>
+                                    </li>
+                                    <% } }%>
+                                    <li>
+                                        <%if (locals.user) { %>
+                                            <a href="#" class="hk-log-inout"><%= user.name %></a>
+                                            <ul class="submenu hk-log-inout">
+                                                <li><a href="/user/gym-info">GYM NEWS</a></li>
+                                                <li><a href="/dashboard/course-detail">MY COURSE CARD</a></li>
+                                                <li><a href="/dashboard/diet-chart">MY DIET CHART</a></li>
+                                                <li><a href="/dashboard/bmi-chart">MY BMI CHART</a></li>
+                                                <li><a href="/user/trainer">MY TRAINER</a></li>
+                                                <li><a href="/user/pay-summary">MY ACCOUNT SUMMARY</a></li>
+                                                <li><a href="/user/pay-summary">MY PERFORMANCE</a></li>
+                                                <li><a href="/authorize/logout">Logout</a></li>
+                                            </ul>
+                                        <% } else { %>
+                                            <a href="/login" class="hk-log-inout">Login</a>
+                                            <ul class="submenu hk-log-inout">
+                                                <li><a href="/login">Login</a></li>
+                                                <li><a href="/register">Register</a></li>
+                                                <li><a href="/gyms">Gyms</a></li>
+                                            </ul>
+                                        <% } %>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="gd-mobile-menu-active"></div>
+                        <div class="gd-mobile-menu text-right d-md-none">
+                            <nav id="gd-mobile-menu">
+                                <ul>
+                                    <li>
+                                        <a href="index.html">HOME</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">PAGES</a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="about.html">ABOUT</a>
+                                            </li>
+                                            <li>
+                                                <a href="contact.html">CONTACT</a>
+                                            </li>
+                                            <li>
+                                                <a href="404.html">404</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="classes.html">CLASSES</a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="single-class.html">CLASS DETAILS</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="events.html">EVENTS</a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="single-event.html">EVENT DETAILS</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">TRAINERS</a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="/trainer-details">TRAINER DETAILS</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="shop.html">SHOP</a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="single-shop.html">PRODUCT DETAILS</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html">BLOG</a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="blog1.html">BLOG 1</a>
+                                            </li>
+                                            <li>
+                                                <a href="blog2.html">BLOG 2</a>
+                                            </li>
+                                            <li>
+                                                <a href="single-post.html">BLOG DETAILS</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="d-none d-md-block">
+                                        <div class="dg-header-search text-right">
+                                            <i class="fas fa-search"></i>
+                                            <div class="search-form">
+                                                <form action="#">
+                                                    <input type="text" placeholder="Search">
+                                                    <button><i class="fas fa-search"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- <li class="d-none d-md-block">
+                                        <a href="#">
+                                            <i class="flaticon-shopping-basket"></i>
+                                            <span>1</span>
+                                        </a>
+                                    </li> -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- GD header end -->
+    <!-- <%- include('../frontend/master') -%> -->
                 

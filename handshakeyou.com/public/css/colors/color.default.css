@@ -1,0 +1,434 @@
+a,
+button,
+.btn,
+.btn.btn-small:hover,
+.btn.btn-white:hover,
+.btn.btn-normal.btn-white:hover,
+.shop-btn .dg-main-menu ul li:last-child span,
+.dg-main-menu ul li ul.submenu li a,
+.dg-main-menu ul li .mega-menu ul li a,
+.dg-header-search,
+.search-form input,
+.search-form button,
+input[type="text"],
+input[type="email"],
+textarea#message,
+.gd-copyright-area p,
+.gd-single-footer-widget ul li,
+.gd-single-footer-widget h5,
+.gd-single-footer-widget p,
+.gd-product-input-number>span input.userincr-btn-inc,
+.gd-product-input-number>span input.userincr-btn-dec,
+.gd-trainer .gd-skillbar-title,
+.gd-trainer-info ul li a i:hover,
+.gd-events-img-holder .gd-class-price h6,
+.gd-classes-img-holder .gd-class-price h6,
+.topcontrol i,
+.gd-touch .gd-touch-info-wrapper p,
+.gd-touch .gd-touch-info-wrapper h3,
+.gd-testimonial-info h4,
+.gd-testimonial-info p,
+.gd-testimonials-headline h3,
+.gd-testimonials-headline p,
+.gd-blog-meta .gd-blog-date h6,
+.gd-blog-meta .gd-blog-date,
+.gd-event-meta .gd-event-date h6,
+.gd-event-meta .gd-event-date,
+.gd-product-meta .gd-product-offer h6,
+.gd-product-meta .gd-product-offer,
+.gd-gallery-overlay a,
+.gd-get-a .gd-get-info p,
+.gd-get-a .gd-get-info h4,
+.gd-summer-off .gd-summer-info p,
+.gd-summer-off .gd-summer-info h4,
+.gd-trainer-meta .gd-trainer-info p,
+.gd-trainer-meta .gd-trainer-name h6,
+.gd-trainer-meta .gd-trainer-name,
+.gd-counter h1,
+.gd-counter h6,
+.gd-counter,
+.gd-sp-services-details ul li P,
+.gd-sp-services-details ul li h6,
+.gd-sp-services-headline h3,
+.gd-class-meta .gd-class-price h6,
+.gd-class-meta .gd-class-price,
+.gd-service p,
+.gd-service h6,
+.gd-about .gd-welcome-info-wrapper p,
+.gd-about .gd-welcome-info-wrapper h3,
+.gd-offer .offer-content p,
+.gd-offer:hover .offer-content h4,
+.gd-banner-wrapper h1,
+.gd-slider-active .owl-nav div,
+.gd-slider-wrapper h1,
+.gd-slider-wrapper h3,
+.gd-social-btns>li>a>i,
+.gd-offer .offer-content a:hover {
+    color: #ffffff;
+}
+
+a:focus,
+a:hover,
+.footer li a:hover,
+.btn:hover,
+.shop-btn:hover,
+.btn.btn-normal:hover,
+.gd-news-social a i:hover,
+.btn.btn-base.btn-link:hover,
+.owl-nav .owl-prev:hover,
+.owl-nav .owl-next:hover,
+.gd-social-btns>li:hover,
+.gd-class-info a:hover,
+.gd-event-info a:hover,
+.gd-blog-info a:hover,
+.gd-categories ul li a:hover,
+.gd-recent-post .gd-info p a:hover,
+.gd-tags ul li a:hover,
+.gd-blog-details-top-content a:hover,
+.gd-blog-comments-list .media .media-body .gd-blog-comments-reply:hover,
+.gd-info-dis ul li a i:hover {
+    color: aqua;
+}
+
+.fas.fa-star,
+.gd-common-color,
+.btn.btn-white,
+.btn.btn-base.btn-link,
+.gd-contact-infos>ul>li>span>i,
+.gd-offer .offer-content h4,
+.gd-banner-wrapper ul li,
+.gd-section-title-bar i,
+.gd-section-title-bar i:before,
+.gd-pagination-center .active a,
+.gd-pagination-left .active a,
+.gd-summer-off .gd-summer-info h2,
+.gd-summer-off .gd-summer-info span,
+.gd-testimonial-info small,
+.gd-classes-details-top-content i,
+.gd-classes-info span,
+.gd-events-details-top-content i,
+.gd-events-info span,
+.gd-trainer .gd-trainer-info h3,
+.gd-single-product-infos .rating,
+.gd-404-wrapper h1,
+.gd-single-footer-widget span,
+.gd-single-footer-widget .fas {
+    color: aqua;
+}
+
+.btn,
+.shop-btn,
+.dg-main-menu ul li:last-child span,
+.dg-main-menu ul li ul.submenu li:hover>a,
+.dg-main-menu ul li .mega-menu ul li a:hover,
+.gd-slider-active .owl-dot.active,
+.gd-class-meta .gd-class-price,
+.gd-trainer-meta .gd-trainer-name,
+.gd-product-meta .gd-product-offer,
+.gd-event-meta .gd-event-date,
+.gd-blog-meta .gd-blog-date,
+.topcontrol,
+.gd-classes-img-holder .gd-class-price,
+.gd-events-img-holder .gd-class-price,
+.gd-product-input-number>span input.userincr-btn-dec,
+.gd-product-input-number>span input.userincr-btn-inc,
+.gd-gallery-overlay a,
+.gd-get-a,
+.swtching-icon,
+.mean-container a.meanmenu-reveal span {
+    background: aqua;
+}
+
+.gd-trainer .gd-skillbar-title,
+.gd-trainer .gd-skillbar-bar {
+    background: aqua !important;
+}
+
+.btn,
+.owl-nav .owl-prev:hover,
+.owl-nav .owl-next:hover,
+.gd-active-sticky,
+.shop-btn:hover,
+.dg-main-menu ul li ul.submenu,
+.gd-pagination-center .active a,
+.gd-pagination-left .active a,
+.gd-tags ul li a:hover,
+.gd-blog-comments-list .media .media-body .gd-blog-comments-reply:hover,
+.gd-single-product-infos a.btn:hover {
+    border-color: aqua;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    border-color: aqua;
+    color: #313131;
+}
+
+.owl-next,
+.owl-prev,
+.dg-main-menu ul li ul.submenu li,
+.dg-main-menu ul li .mega-menu,
+.dg-main-menu ul li .mega-menu ul li,
+.whishlist,
+.add_to_cart {
+    border-color: #404040;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.gd-trainer-info ul li a i,
+.gd-news-social a i,
+.gd-contact-form>form .row>div>i,
+.gd-contact-form>form .row>div>input[type="text"],
+.gd-contact-form>form .row>div>input[type="password"],
+.gd-contact-form>form .row>div>input[type="date"],
+.gd-contact-form>form .row>div>textarea,
+.gd-contact-infos>ul li span,
+.gd-det-link,
+.gd-pagination-center li a,
+.gd-pagination-left li a,
+.gd-categories ul li a,
+.gd-recent-post .gd-info p a,
+.gd-tags ul li a,
+.gd-blog-details-top-content a,
+.gd-blog-comments-list .media .media-body .gd-blog-comments-reply,
+.gd-trainer .gd-trainer-detail-image .gd-trainer-info p,
+.gd-single-product-infos .gd-product-input-number>span>input.manual-adjust,
+.gd-similar-cat .single-item .item-content-wrapper p {
+    color: #222222;
+}
+
+.gd-trainer-info ul li a:hover,
+.gd-gallery-overlay a:hover {
+    color: #222222;
+}
+
+.gd-section-title-bar:before,
+.gd-section-title-bar:after,
+.gd-slider-active .owl-nav div,
+.gd-offer:hover .offer-content a,
+.gd-product-input-number>span input.userincr-btn-dec,
+.top-contact ul li:last-child,
+.btn.btn-white {
+    border-color: #ffffff;
+}
+
+.gd-offer:hover .offer-content a,
+.search-form input,
+.search-form button,
+.gd-single-product-infos a.btn.add_to_cart:hover,
+.gd-single-product-infos a.btn:hover {
+    background: rgba(0, 0, 0, 0);
+}
+
+.gd-sp-services-details,
+.gd-product-overlay,
+.gd-touch .gd-touch-info-wrapper,
+.gd-trainer-meta .gd-trainer-info,
+.lightcoral-default,
+.gd-welcome-info-wrapper {
+    background: rgba(232, 61, 71, 0.9);
+}
+
+.gd-class-details .gd-class-meta::after,
+.offers .gd-offer::after,
+.gd-event-details .gd-event-meta::after,
+.single-item .item-img-wrapper::after,
+.gd-blog-details .gd-blog-meta::after {
+    background: rgba(232, 61, 71, 0.6);
+}
+
+.gd-event-info a,
+.gd-blog-info a,
+.gd-trainer-meta .gd-trainer-price h5 a:hover,
+.gd-class-info a {
+    color: #000000;
+}
+
+.btn.btn-black,
+.dg-main-menu ul li ul.submenu,
+.dg-main-menu ul li .mega-menu,
+.gd-single-footer-widget .gd-sub-form input[type="text"] {
+    background: #2c2c2c;
+}
+
+.btn.btn-white,
+.gd-contact-form>form .row>div>input[type="text"],
+.gd-contact-form>form .row>div>input[type="password"],
+.gd-contact-form>form .row>div>input[type="date"],
+.gd-contact-form>form .row>div>textarea,
+.shop-btn:hover,
+.gd-det-link,
+.gd-trainer .gd-skill-bar-percent,
+.gd-slider-active .owl-dot {
+    background: #ffffff;
+}
+
+.gd-contact-form>form .row>div>input[type="text"],
+.gd-contact-form>form .row>div>input[type="password"],
+.gd-contact-form>form .row>div>input[type="date"],
+.gd-contact-form>form .row>div>textarea {
+    background: #d9dcde;
+    border: 1px solid #d9dcde;
+}
+
+.gd-contact-form>form .row>div>input[type="text"],
+.gd-contact-form>form .row>div>input[type="password"],
+.gd-contact-form>form .row>div>input[type="date"],
+.gd-contact-form>form .row>div>textarea:focus{
+    outline: none;
+}
+
+.gd-tags ul li a,
+.gd-blog-comments-list .media .media-body .gd-blog-comments-reply,
+.gd-copyright-area {
+    border-color: #474646;
+}
+
+.btn.btn-white:hover,
+.btn.btn-base.btn-link {
+    background: transparent;
+}
+
+.gd-pagination-center li a,
+.gd-pagination-left li a {
+    border-color: #f5f5f5;
+}
+
+.gd-classes-details-top-content ul li,
+.gd-events-details-top-content ul li,
+.gd-similar-cat .single-item .item-content-wrapper p,
+.gd-single-product-infos span.price,
+.gd-blog-comments li,
+.gd-blog-comments-list span,
+.gd-blog-leave-comments p,
+.gd-blog-details-top-content p i,
+.gd-contact-form>form .row>div>input[type="text"]::placeholder,
+.gd-contact-form>form .row>div>input[type="password"]::placeholder,
+.gd-contact-form>form .row>div>input[type="date"]::placeholder,
+.gd-contact-form>form .row>div>textarea::placeholder {
+    color: #505050;
+}
+
+p,
+label,
+.gd-product-price del {
+    color: #616161;
+}
+
+hr {
+    border-color: #eceff8;
+}
+
+*::-moz-selection {
+    background: #0051ff;
+    color: #ffffff;
+}
+
+ ::-moz-selection {
+    background: #0051ff;
+    color: #ffffff;
+}
+
+ ::selection {
+    background: #444444;
+    color: #ffffff;
+}
+
+*::-moz-placeholder {
+    color: #ffffff;
+}
+
+*::placeholder {
+    color: #ffffff;
+}
+
+.separator {
+    border-color: #f2f2f2;
+}
+
+.overlay-default:before {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+section [class^="flaticon-"]::before {
+    color: #ffffff;
+}
+
+.gd-news-tag-social {
+    border-color: #e4e4e4;
+}
+
+.search-form {
+    background: #222222;
+}
+
+.gd-social-btns>li {
+    background: #313131;
+}
+
+.gd-trainer-meta .gd-trainer-name a:hover {
+    color: #f1f1f1;
+}
+
+.gd-gallery-overlay {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.gd-categories ul li {
+    border-color: #505050;
+}
+
+.gd-blog-comments-list .media a img {
+    background: #d7d7d7;
+}
+
+.gd-trainer .gd-skillbar {
+    background: #eeeeee;
+}
+
+.gd-trainer .gd-skillbar-title {
+    background: #6adcfa;
+}
+
+.gd-trainer .gd-skillbar-title span {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.gd-trainer .gd-skillbar-bar {
+    background: #6adcfa;
+}
+
+.gd-trainer .gd-skill-bar-percent {
+    color: rgba(0, 0, 0, 1);
+}
+
+.gd-single-product-infos a.btn {
+    background: #555555;
+}
+
+.gd-single-product-infos .gd-product-input-number>span>input.manual-adjust {
+    background: #f5f5f5;
+}
+
+.gd-copyright-area {
+    background: #404040;
+}
+
+.btn.btn-black:hover {
+    background: #1a1a1a;
+}
+
+.gd-header-area {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.gd-white-space {
+    background: #d9dcde;
+    
+}

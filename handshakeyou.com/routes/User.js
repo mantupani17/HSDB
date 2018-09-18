@@ -6,6 +6,10 @@ router.get('/api/users', (req, res)=>{
     UsersController.getAllUsers(req, res);
 });
 
+router.get('/api/trainers',(req, res)=>{
+    UsersController.getAllTrainers(req, res);
+})
+
 // adding user by admin
 router.post('/admin/users',(req, res)=>{
 
@@ -15,6 +19,10 @@ router.post('/admin/users',(req, res)=>{
 // self register
 router.post('/api/register/user',(req, res)=>{
     UsersController.addNewUser(req, res);
+});
+
+router.get('/api/owners', (req, res)=>{
+    UsersController.getAllOwners(req, res);
 });
 
 

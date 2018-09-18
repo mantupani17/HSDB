@@ -1,0 +1,15 @@
+<%- include('../components/header'); -%>
+<section class="gd-product padding-default hk-margin-top-100">
+</section>
+<%- include('../components/footer'); -%>
+<script src="/js/jquery.validation.js"></script>
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/sweetalert.min.js"></script>
+<script src="/ajax/myApp.js"></script>
+<script>
+    $(document).ready(function(){
+        app.viewAllGym().done(function(response){
+            console.log(response);
+        })
+    });
+</script>

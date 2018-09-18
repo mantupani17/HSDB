@@ -40,4 +40,80 @@ var app = {
         });
     },
 
+    getAllTrainers:function(){
+        return $.ajax({
+            url:'/users/api/trainers',
+            method:'GET',
+            dataType:'json'
+        });
+    },
+
+    getAllOwners:function(){
+        return $.ajax({
+            url:'/users/api/owners',
+            method:'GET',
+            dataType:'json'
+        });
+    },
+
+    // Gym related ajax
+    // add new gym
+    addNewGym:function(data){
+        data = data || {};
+        return $.ajax({
+            url:'/gymapi/gym',
+            method:'POST',
+            data:data,
+            dataType:'json',
+            cache:false
+        });
+    },
+
+    viewAllGymNames: function(){
+        return $.ajax({
+            url:'/gymapi/gym-names',
+            method:'GET',
+            dataType:'json'
+        });
+    },
+
+    viewAllGyms: function(){
+        return $.ajax({
+            url:'/gymapi/gym',
+            method:'GET',
+            dataType:'json'
+        });
+    },
+
+    uploadGymDp:function(data){
+        data = data || {};
+        return $.ajax({
+            url:'/gymapi/upload-dp',
+            method:'POST',
+            data:data,
+            dataType:'json',
+            cache:false
+        });
+    },
+
+    getGymBanner:function(data){
+        data = data || {}
+        return $.ajax({
+            url:'/gymapi/get-dp',
+            method:'GET',
+            data:data,
+            dataType:'json'
+        });
+    },
+
+    updateGymStatus: function(data){
+        data = data || {}
+        return $.ajax({
+            url:'/gymapi/update-status',
+            method:'GET',
+            data:data,
+            dataType:'json'
+        });
+    }
+
 }

@@ -1,7 +1,5 @@
 <%- include('components/header'); -%>
-  <style>
-    
-
+  <style>   
     body {
       background: #fff;
     }
@@ -20,63 +18,53 @@
       border-bottom: 2px solid #e91e63;
       box-shadow: none;
     }
+
+    ::placeholder{
+      color: black;
+      opacity: 1;
+    }
   </style>
-  <div class="section"></div>
-  <main>
-    <center>
-      <div class="section"></div>
+<section class="gd-product padding-default hk-margin-top-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div id="gd_contact">
+                            <div id="message"></div>
+                            <div class="gd-contact-form">
+                                <form method="post" name="login-frm" id="login-frm">
+                                    <div class="row">
+                                        
+                                        <div class="col-md-12">
+                                            <i class="fas fa-at"></i>
+                                            <input name="email" id="email" class="input-style" placeholder="Email" type="text">
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                          <i class="fas fa-key"></i>
+                                          <input name="password" id="password" class="input-style" placeholder="Password?" type="password">
+                                        </div>
 
-      <div class="section"></div>
-
-      <div class="container">
-        <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
-
-          <form class="col s12" name="login-frm" id="login-frm">
-            <div class='row'>
-              <div class='col s12 register-header'>
-                Login
-              </div>
-            </div>
-
-            <div class='row'>
-              <div class='input-field col s12'>
-                <input class='validate' type='email' name='email' id='email' />
-                <label for='email'>Enter your email</label>
-              </div>
-            </div>
-
-            <div class='row'>
-                <div class='input-field col s12'>
-                    <input class='validate' type='password' name='password' id='password' />
-                    <label for='password'>Enter your password</label>
+                                        <div class="col-md-12">
+                                            <input class="btn" id="btn-login" name='btn_login' value="Login" type="button">
+                                        </div>
+                                        <a href="/register">Create account</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <label style='float: right;'>
-                        <a class='pink-text' href='#!'><b>Forgot Password?</b></a>
-                </label>
             </div>
-
-            <br />
-            <center>
-              <div class='row'>
-                <button type='button' id="btn-login" name='btn_login' class='col s12 btn btn-large waves-effect indigo'>Login</button>
-              </div>
-            </center>
-          </form>
         </div>
-      </div>
-      <a href="/register">Create account</a>
-    </center>
+    </div>
+</section>  
 
-    <div class="section"></div>
-    <div class="section"></div>
-  </main>
   <%- include('components/footer'); -%>
-  <script src="/js/jquery.min.js"></script>
-  <script src="/js/materialize.min.js"></script>
-  <script src="/js/materialize.js"></script>
   <script src="/js/jquery.validation.js"></script>
   <script src="/js/jquery.validate.min.js"></script>
   <script src="/js/sweetalert.min.js"></script>
   <script src="/ajax/myApp.js"></script>
-  <script src="/admin/login.js"></script>
+  <script src="/admin/auth.js"></script>
 </html>

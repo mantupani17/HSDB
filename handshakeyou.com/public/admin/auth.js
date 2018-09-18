@@ -15,7 +15,8 @@ $('#login-frm').validate({
             email:{
                 required:true,
                 maxlength:50,
-                minlength:1
+                minlength:1,
+                email:true,
             },
             
             password:{
@@ -28,7 +29,8 @@ $('#login-frm').validate({
             email:{
                 required:"User name is required",
                 maxlength:"User name should be within 50 characters",
-                minlength:"User name should not be blank"
+                minlength:"User name should not be blank",
+                email:"User name should be email"
             },
             password:{
                 required:'Password is required',

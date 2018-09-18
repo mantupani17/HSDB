@@ -1,0 +1,124 @@
+/* Extra small Device. */
+
+
+/*
+@media (max-width: 1020px) and (min-width: 767px) {
+    .dg-main-menu ul li {
+        margin-left: 12px;
+    }
+}
+*/
+
+@media (max-width: 767px) {
+    .gd-header-area {
+        padding: 20px 0 10px;
+    }
+    .logo {
+        padding-left: 10px;
+    }
+    .gd-slider-wrapper {
+        padding: 120px 0 80px;
+    }
+    .gd-slider-wrapper h1 {
+        font-size: 40px;
+    }
+    .gd-slider-wrapper h3 {
+        font-size: 18px;
+    }
+    .gd-slider-wrapper a {
+        margin-top: 25px;
+    }
+    .offers .gd-offer,
+    .gd-about .gd-welcome-info-wrapper,
+    .gd-service,
+    .gd-sp-services-details,
+    .gd-headline,
+    .gd-counter,
+    .gd-summer-info,
+    .gd-get-info,
+    .gd-touch .gd-touch-info-wrapper {
+        padding: 10%;
+    }
+    .gd-about .gd-welcome-info-wrapper p {
+        padding: 5%px 0;
+    }
+    .gd-class-details,
+    .gd-trainer-details,
+    .gd-pproduct-details,
+    .gd-event-details,
+    .gd-testimonial-active,
+    .gd-single-footer-widget,
+    .gd-classes-details-inner-top,
+    .gd-similar-cat,
+    .gd-events-details-inner-top,
+    .gd-blog-details-inner-top,
+    .gd-blog-comments-list,
+    .gd-blog-leave-comments,
+    .gd-single-product-sec,
+    .gd-product-details,
+    .gd-trainer-detail-image,
+    .gd-trainer-detail-content {
+        padding: 0 7%;
+    }
+    .gd-sidebar,
+    .gd-contact-details,
+    .gd-contact-form {
+        margin: 40px 7%;
+    }
+    .gd-single-footer-widget h5 {
+        margin: 35px 0;
+    }
+    .gd-404-wrapper {
+        padding: 0 7%;
+    }
+    .gd-404-wrapper h1 {
+        font-size: 95px;
+    }
+    .gd-banner-area {
+        padding: 100px 0 10%;
+    }
+    .item-gd {
+        padding: 0 7%;
+    }
+    .d-flex {
+        display: block !important;
+    }
+    button.fill-color-btn,
+    a.fill-color-btn {
+        padding: 10px 30px;
+    }
+    .gd-product-price>ul>li {
+        display: inline;
+    }
+    .gd-detail-image {
+        overflow: hidden;
+    }
+    .gd-trainer-meta .gd-trainer-info p {
+        margin: 2% 0;
+    }
+    .gd-trainer .gd-detail-heading,
+    .gd-trainer #gd_skills {
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .padding-default {
+        padding: 50px 0;
+    }
+    .padding-second {
+        padding: 30px 0 90px;
+    }
+    .padding-get {
+        padding: 20px 0 50px;
+    }
+    .gd-trainer-meta .gd-trainer-info {
+        padding: 4% 25px;
+    }
+    .gd-trainer-meta .gd-trainer-name {
+        padding: 7px 20px 0 15px;
+    }
+    .gd-copyright-area {
+        padding: 35px 20px;
+    }
+}

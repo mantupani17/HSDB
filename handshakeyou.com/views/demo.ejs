@@ -1,0 +1,2517 @@
+Mintbook
+Trainee software engineer 
+Teacher: Google
+Email: mantupani17@gmail.com
+NodeJs, mongoDB, JQuery, javascript
+Programming language
+Notes
+
+Date Format in javascript:
+ console.log("1) "+  new Date().toDateString());
+ console.log("2) "+  new Date().toISOString());
+ console.log("3) "+  new Date().toJSON());
+ console.log("4) "+  new Date().toLocaleDateString());
+ console.log("5) "+  new Date().toLocaleString());
+ console.log("6) "+  new Date().toLocaleTimeString());
+ console.log("7) "+  new Date().toString());
+ console.log("8) "+  new Date().toISOString().slice(0,10));
+
+Custom Validation in Jquery
+$.validator.addMethod('mustBe',function(value, element, options){
+                var targetElem = $('input[name="'+options.data+'"]');
+                var startDate = $('input[name="startDate"]').val();
+                var result =  (Date.parse(value) < Date.parse(startDate));
+                (result) ? targetElem.addClass('error') : targetElem.removeClass('error');
+            return !result;           
+            },
+            'This field is required and it should be greater then the start date'
+            )
+
+endDate: {
+                        required:true,
+                        mustBe:{data:'endDate'}
+                    }
+
+
+Date Picker
+$(document).ready(function() {
+  var selected_end_date, selected_start_date;
+  var clear_start_date = true;
+  Materialize.updateTextFields();
+  
+  var $startpicker = $('#start_date').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year
+    closeOnClear: true,
+    format: 'dd/mm/yyyy',
+    onSet: function(e) {
+      if (e.clear === null) {
+        clear_start_date = true;
+        start_picker.close();
+      } else {
+        clear_start_date = false;
+        selected_start_date = moment(e.select).format("DD/MM/YYYY");
+        var end_min_date = moment(selected_start_date, "DD/MM/YYYY").add('days', 1).format("DD/MM/YYYY");
+        // $(this).val(selected_start_date);
+        $('#end_date').removeAttr('disabled');
+        end_picker.set('min', end_min_date);
+        end_picker.set('select', end_min_date);
+        start_picker.close();
+      }
+    },
+    onClose: function() {
+      //fix for reappearing datpicker
+      $(document.activeElement).blur();
+      //clear the end date
+      end_picker.set('clear');
+      if (clear_start_date) {
+        $('#end_date').attr('disabled', true);
+        end_picker.close();
+      } else {
+        end_picker.open(true);
+      }
+    }
+  });
+
+  var $endpicker = $('#end_date').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year
+    format: 'dd/mm/yyyy',
+    onSet: function(e) {
+      selected_end_date = moment(e.select).format("DD/MM/YYYY");
+      $(this).val(selected_end_date);
+    },
+    onClose: function() {
+      //fix for reappearing datpicker
+      $(document.activeElement).blur();
+    }
+  });
+
+  var end_picker = $endpicker.pickadate('picker');
+  $('#start_date').change(function() {
+    if ($('#start_date').val() === '') {
+      $('#end_date').attr('disabled', true);
+    }
+  });
+});
+
+mongoDB $push nad $group and $match
+.update(
+    {"userId":ObjectId("5b02a4f658eee83f8b3dff3f")},
+    {$push:{"iltAttendence":"hello"}}
+)
+Aggregate Function
+db.getCollection('user_courses').aggregate([
+{
+    $match:{
+    $and:[
+            {schedulerId:ObjectId("5b02a59458eee83f8b3dff41")},
+            {courseId:ObjectId("5b028be70c3a832d0ca02d46")},
+            {
+                $or:[
+                    {courseType:"ILT-Online"},
+                    {courseType:"ILT-Ofline"}
+                    ]
+            }
+        ]
+        }
+},
+{
+    $lookup:{
+        from:"users",
+        localField:"userId",
+        foreignField:"_id",
+        as:"userDetails"
+    }
+},
+{$unwind:"$userDetails"},
+{$project:{
+    "userId":"$userDetails._id",
+    "name":"$userDetails.name",
+    "empId":"$userDetails.empId"
+    }
+}
+])
+Ex 2
+{$group:{"_id":"$userId",count:{$sum:1}}},
+    {$project:{count:1,_id:1,user_details:"$userDetails"}}
+
+    // {$lookup:{from:"users",localField:"userId",foreignField:"_id",as:"userDetails"}},
+            // {$unwind:"$userDetails"},
+            // {$group:{_id:"$userDetails.empId",count:{$sum:1}}},
+
+db.test.aggregate({
+  $group: {
+    _id: '$name',
+   name : { $first: '$name' }
+   age : { $first: '$age' },
+   sex : { $first: '$sex' },
+   province : { $first: '$province' },
+   city : { $first: '$city' },
+   area : { $first: '$area' },
+   address : { $first: '$address' },
+   count: { $sum: 1 }
+  }
+}
+
+db.getCollection('user_courses').aggregate([
+{$lookup: {from: 'courses',localField: "courseId",foreignField: "_id",as: "Courses"}},
+{ $unwind: "$Courses" },
+{ $match: {userId:ObjectId("5ad0a78eb3fa904a6d9d4a2d")} },
+{$project: {courseId: '$Courses._id',name: '$Courses.title',course_status: '$Courses.status',assignedBy:1,status:1,obtainedCertificate:1,obtainedScore:1}},
+])
+
+
+
+
+
+
+@layout('frontend/dashboard/master') 
+@section('content')
+<!--breadcrumbs start-->
+<div id="breadcrumbs-wrapper">
+    <!-- Search for small screen -->
+    <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
+        <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h5 class="breadcrumbs-title">Manage Content</h5>
+                <ol class="breadcrumbs">
+                    <li>
+                        <a href="/my-dashboard">Dashboard</a>
+                    </li>
+                    <li class="active">Manage Content</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs end-->
+<!--start container-->
+<div class="container">
+    <div id="work-collections" class="section">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="row">
+                    <div class="input-field col s12 m4 l4">
+                        <select id="content-type">
+                            <option value="" disabled="" selected="">Select</option>
+                            <option>Course</option>
+                            <option>Assessment</option>
+                            <option>Quiz</option>
+                            <option>Circular</option>
+                            <option>Discussion Forum</option>
+                        </select>
+                        <label>Content type</label>
+                    </div>
+
+                    <mb-filter-container>
+                        <div class="input-field col s12 m4 l4">
+                            <select>
+                                <option value="" disabled="" selected="">Select</option>
+                                <option value="1">Account</option>
+                                <option value="2">Banking</option>
+                                <option value="3" onClick "Typecategory()">Other</option>
+                            </select>
+                            <label>Category</label>
+                        </div>
+
+                        <div class="input-field col s12 m4 l4" id="categoryhidden" style="display: none;">
+                            <input id="icon_prefix" type="text" class="validate">
+                            <label for="icon_prefix" class="">Type CATEGORY</label>
+                        </div>
+
+                        <div class="input-field col s12 m4 l4">
+                            <select>
+                                <option value="" disabled="" selected="">Select</option>
+                                <option value="1">Banking occupations</option>
+                                <option value="2">Banking organisations‎</option>
+                                <option value="3">Bank regulation‎</option>
+                            </select>
+                            <label>Sub-Category</label>
+                        </div>
+
+                        <div class="input-field col s12 m4 l4">
+                            <select>
+                                <option value="" disabled="">Select</option>
+                                <option value="1" selected="">Active</option>
+                                <option value="2">Inactive</option>
+                            </select>
+                            <label>Status</label>
+                        </div>
+
+                    </mb-filter-container>
+                    <div class="input-field col s12 m4 l4">
+                        <a class="btn waves-effect waves-light blue-color">Search</a>
+                        <a class="waves-effect waves-light btn" id="content-create">Add</a>
+                    </div>
+                </div>
+            </div>
+
+            <mb-form-container></mb-form-container>
+            <mb-list-container>
+                <!--data table start..........................................-->
+                <div class="col s12">
+                    <table id="data-table-simple" class="responsive-table display" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Max Limit</th>
+                                <th>Created On</th>
+                                <th>Created By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Promotion Exam</td>
+                                <td>Course</td>
+                                <td>10-02-2018</td>
+                                <td>10-06-2018</td>
+                                <td>100</td>
+                                <td>10-02-2018</td>
+                                <td>Admin</td>
+                            </tr>
+
+                            <tr>
+                                <td>Mark to Market</td>
+                                <td>Assessment</td>
+                                <td>1-03-2018</td>
+                                <td>15-05-2018</td>
+                                <td>100</td>
+                                <td>1-03-2018</td>
+                                <td>Admin</td>
+                            </tr>
+
+                            <tr>
+                                <td>Credit Management and Credit Professionals</td>
+                                <td>Assessment</td>
+                                <td>10-02-2018</td>
+                                <td>25-03-2018</td>
+                                <td>100</td>
+                                <td>10-02-2018</td>
+                                <td>Admin</td>
+                            </tr>
+
+                            <tr>
+                                <td>Know Your Customer (KYC)</td>
+                                <td>Assessment</td>
+                                <td>08-02-2018</td>
+                                <td>25-03-2018</td>
+                                <td>100</td>
+                                <td>08-02-2018</td>
+                                <td>Admin</td>
+                            </tr>
+                            <tr>
+                                <td>Banking Operations</td>
+                                <td>Assessment</td>
+                                <td>18-02-2018</td>
+                                <td>26-03-2018</td>
+                                <td>100</td>
+                                <td>18-02-2018</td>
+                                <td>Admin</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!--data table end..............................-->
+            </mb-list-container>
+        </div>
+    </div>
+</div>
+
+ <!--Start AddResource -->
+   <div id="add-resourse-popup" class="modal modal-fixed-footer">
+      <div class="modal-content nopadding">
+         <div id="card-widgets">
+            <div class="row">
+                <ul id="task-card" class="collection with-header add-people">
+                    <li class="collection-header teal accent-4">
+                    <h4 class="task-card-title">Add Resources To <mb-resourceTitle></mb-resourceTitle></h4>
+                    </li>
+                </ul>
+                <div class="section member-list-pad">
+                    
+                 <div class="row">
+                    <form name="add-resources-frm" action="/api/resource/save">
+                      <div class="row">
+                    
+                          <div class="input-field col s12 m4 l4">
+                              <input id="cmr-title" type="text" name="title" class="validate">
+                              <label for="cmr-title" class="">Title</label>
+                          </div>
+
+                           <div class="input-field col s12 m4 l4">
+                              <input id="cmr-author" type="text" name="author" class="validate">
+                              <label for="cmr-author" class="">Author</label>
+                          </div>
+
+
+                        <div class="input-field col s12 m4 l4">
+                            <select name="contentType">
+                                <option value="" disabled="">Select</option>
+                                <option value="Ebook" selected="">Ebook</option>
+                                <option value="Video">Video</option>
+                                <option value="Scorm">Scorm</option>
+                            </select>
+                            <label>Resource type</label>
+                        </div>
+
+                          
+                         <div class="input-field col s12 m4 l4">
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>File</span> <input type="file" name="file" >
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
+                            </div>
+                        </div>
+                          <div class="input-field col s12 m4 l4">
+                            {{ csrfField() }}
+                              <button type="submit" class="btn waves-effect waves-light blue-color">Add New</button>
+                          </div>
+                      </div>
+                  </form>
+                 </div>
+                </div>
+
+                <div id="resource-list" class="member-list-pad">
+                    <div class="row">
+                    <div class="col s12 m12 l12">
+                    <form name="add-resource_frm">
+                        <div class="card">
+                            <div class="card-content" style="padding: 0px;">
+                                <table id="resource-list-tbl" class="responsive-table display " cellspacing="0">
+                                
+                                    <thead>
+                                        <tr>
+                                            <th>ItemCode</th>
+                                            <th>Title</th>
+                                            <th>Author</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                             </div>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+           </div>
+         </div>
+      </div>
+
+       <div class="modal-footer add-people-footer">
+         <button type="button" class="waves-effect blue-color waves-green btn add-resource-btn ">Add</button>
+         <a href="#" class="modal-action modal-close waves-effect red-color waves-green btn ">Cancel</a>
+      </div>
+
+
+   </div>
+ <!--End AddResource -->
+
+
+
+
+<!-- Define Circular Tempaltes -->
+<!-- Circular -->
+<script id="addCircular-template" type="text/html">
+    <!--Circular add Start...............................................................-->
+    <div class="col s12 m12 l12">
+        <form name="create-circular-frm" action="saveCircular">
+            <div class="row">
+                <h5 class="table-year">Circular</h5>
+                <div class="input-field col s12 m4 l4">
+                    <input id="circular-title" name="title" type="text" class="validate">
+                    <label for="circular-title" class="">Title</label>
+                </div>
+
+                <div class="input-field col s12 m4 l4">
+                    <select name="type" id="cirType">
+                        <option value="" disabled="" selected="">Select</option>
+                        <option value="RBI">RBI</option>
+                        <option value="Banks">Banks</option>
+                    </select>
+                    <label>Circular Type</label>
+                </div>
+                <div class="input-field col s12 m4 l4">
+                    <input id="circular-category" name="category" type="text" class="validate auto-complete-catg">
+                    <label for="circular-category" class="">Category</label>
+
+                </div>
+
+                <div class="input-field col s12 m4 l4">
+                    <input id="circular-subCategory" name="subCategory" type="text" class="validate auto-complete-subcatg" autocomplete="off">
+                    <label for="circular-subCategory" class="">Sub Category</label>
+
+                </div>
+
+                <div class="input-field col s12 m4 l4">
+                    <input id="circular-applies-to" name="appliesTo" type="text" class="validate">
+                    <label for="circular-applies-to" class="">Applies to</label>
+                </div>
+
+                <div class="input-field col s12 m4 l4">
+                    <input id="circular-ref" name="refNumber" type="text" class="validate">
+                    <label for="circular-ref" class="">Ref Number</label>
+                </div>
+
+                <div class="input-field col s12 m4 l4">
+                    <input id="circular-keyword" name="keyword" type="text" class="validate">
+                    <label for="circular-keyword" class="">Keyword</label>
+
+                </div>
+
+                <div class="input-field col s12 m4 l4">
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>File</span>
+                            <input type="file" name="file" id="file">
+                        </div>
+
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" name="file_path" type="text" id="file_path">
+                        </div>
+                        <input type="hidden" value="" id="objid" name="obj_id">
+                    </div>
+        </form>
+        </div>
+        <div class="input-field col s12 m4 l4">
+            {{ csrfField() }}
+            <button type="submit" class="btn waves-effect waves-light blue-color">Save</button>
+            <a class="waves-effect waves-light btn">Cancel</a>
+        </div>
+        </div>
+    </div>
+    <!--Circular add end...............................................................-->
+</script>
+
+<script id="listCircular-template" type="text/html">
+    <div id="work-collections" >
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card">
+                        <table id="data-table-simple" class="responsive-table display circular-table-list dataTable no-footer " cellspacing="0">
+                        <thead>
+                            <tr role="row">
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Ref Number</th>
+                                <th>Created On</th>
+                                <th>Created By</th>
+                                <th>Actioin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- End of Circular Tempaltes -->
+
+
+
+<!-- Define Quiz Tempaltes -->
+<script id="addQuiz-template" type="text/html">
+    <!--Quiz hour/DF/Assignment add Start...............................................................-->
+    <div class="col s12 m12 l12" style="" id="quizHour">
+        <div class="row">
+            <h5 class="table-year">Quiz Hour</h5>
+            <div class="input-field col s12 m4 l4">
+                <input id="icon_prefix" type="text" class="validate">
+                <label for="icon_prefix" class="">Title</label>
+            </div>
+            <div class="input-field col s12 m4 l4">
+                <input type="text" class="datepicker">
+                <label for="icon_prefix" class="">Start Date</label>
+            </div>
+            <div class="input-field col s12 m4 l4">
+                <input type="text" class="datepicker">
+                <label for="icon_prefix" class="">End Date</label>
+            </div>
+            <div class="input-field col s12 m4 l4">
+                <input id="icon_prefix" type="text" class="validate">
+                <label for="icon_prefix" class="">Duration</label>
+
+                        <div class="input-field col s12 m4 l4" id="categoryhidden" style="display: none;">
+                            <input id="icon_prefix" type="text" class="validate">
+                            <label for="icon_prefix" class="">Type CATEGORY</label>
+                        </div>
+                        <div class="input-field col s12 m4 l4">
+                            <select>
+                                <option value="" disabled="" selected="">Select</option>
+                                <option value="1">Banking occupations</option>
+                                <option value="2">Banking organisations‎ </option>
+                                <option value="3">Bank regulation‎</option>
+                            </select>
+                            <label>Sub-Category</label>
+                        </div>
+                        <div class="input-field col s12 m4 l4">
+                            <select>
+                                <option value="" disabled="">Select</option>
+                                <option value="1" selected="">Active</option>
+                                <option value="2">Inactive</option>
+                            </select>
+                            <label>Status</label>
+                        </div>
+                    </mb-filter-container>     
+                    <div class="input-field col s12 m4 l4">
+                          <a class="btn waves-effect waves-light blue-color">Search</a>
+                          <a class="waves-effect waves-light btn" id="content-create">Add</a>
+                      </div>
+              </div>
+          </div>
+
+            <mb-form-container></mb-form-container>
+           
+        </div>
+    </div>
+    </div>
+</script>
+<!-- End of Quiz Tempaltes -->
+
+
+
+<!-- Define Course Tempaltes -->
+<script id="addCourse-template" type="text/html">
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs" id="course-tab">
+                <li class="tab col s3"><a href="#course-details-tab">Course Details</a></li>
+                <li class="tab col s3 disabled course-modules-tab-li"><a href="#course-modules-tab">Course Modules</a></li>
+            </ul>
+        </div>
+
+        <div id="course-details-tab" class="col s12">
+            <div class="col s12 m12 l12" class="add-course-container">
+                <form name="add-course-frm">
+                    <div class="row">
+                    
+                        <!-- <h5 class="table-year">Create Course</h5>-->
+                        
+                        <div class="input-field col s12 m4 l4">
+                            <input id="c-title" type="text" name="title" class="validate">
+                            <label for="c-title" class="">Title</label>
+                        </div>
+
+                        <div class="input-field col s12 m4 l4">
+                            <input id="c-author" type="text" name="author" class="validate">
+                            <label for="c-author" class="">Author</label>
+                        </div>
+
+                        <div class="input-field col s12 m4 l4">
+                            <select name="type">
+                                <option value="" disabled="">Select</option>
+                                <option value="Online" selected="">ONLINE</option>
+                                <option value="ILT-Online">ILT-ONLINE</option>
+                                <option value="ILT-Offline" >ILT-OFFLINE</option>
+                            </select>
+                            <label>Type</label>
+                        </div>
+
+                        <div class="input-field col s12 m4 l4">
+                            <select name="accessType">
+                                <option value="" disabled="">Select</option>
+                                <option value="Open">OPEN</option>
+                                <option value="Restricted" selected="">RESTRICTED</option>
+                            </select>
+                            <label>Access Type</label>
+                        </div>
+
+                        <div class="input-field col s12 m4 l4">
+                            <input type="text" id="c-startDate" name="startDate" class="datepicker">
+                            <label for="c-startDate" class="">Start Date</label>
+                        </div>
+
+                        <div class="input-field col s12 m4 l4">
+                            <input type="text" id="c-endDate" name="endDate"  class="datepicker">
+                            <label for="c-endDate" class="">End Date</label>
+                        </div>
+
+                        
+                        <div class="input-field col s12 m4 l4">
+                            <select name="certificate">
+                                <option value="" disabled="">Select</option>
+                                <option value="Enable" selected="">ENABLE</option>
+                                <option value="Disable">DISABLE</option>
+                            </select>
+                            <label>Certificate</label>
+                        </div>
+
+                        <div class="input-field col s12 m4 l4">
+                            <select name="sequential">
+                                <option value="" disabled="">Select</option>
+                                <option value="Yes" >YES</option>
+                                <option value="No" selected="">NO</option>
+                            </select>
+                            <label>Sequential</label>
+                        </div>
+
+
+                        <div class="input-field col s12 m4 l4">
+                            <select name="isPopular">
+                                <option value="" disabled="">Select</option>
+                                <option value="Yes" >YES</option>
+                                <option value="No" selected="">NO</option>
+                            </select>
+                            <label>Is Popular Course</label>
+                        </div>
+
+                        <div class="input-field col s12 m4 l4">
+                            <select name="isTrending">
+                                <option value="" disabled="">Select</option>
+                                <option value="Yes" >YES</option>
+                                <option value="No" selected="">NO</option>
+                            </select>
+                            <label>Is Trending</label>
+                        </div>
+
+
+                        <div class="input-field col s12 m4 l4">
+                            <input type="text" id="c-keywords" name="keywords" >
+                            <label for="c-keywords" class="">Keywords</label>
+                        </div>
+
+                        
+                        <div class="input-field col s12 m4 l4">
+                            <select name="status">
+                                <option value="" disabled="">Select</option>
+                                <option value="Active" selected="">Active</option>
+                                <option value="InActive" >InActive</option>
+                            </select>
+                            <label>Status</label>
+                        </div>
+
+                        <div class="input-field col s12 m4 l4">
+                            <textarea id="c-description" name="description" class="materialize-textarea"></textarea>
+                            <label for="c-description">Description</label>
+                        </div>
+
+
+                        <!--
+                        <div class="input-field col s12 m4 l4">
+                                <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>File</span>
+                                    <input type="file">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
+                                </div>
+                        </div> -->
+
+
+                        <div class="input-field col s12 m4 l4">
+                            {{ csrfField() }}
+                            <input type="hidden" value="0" name="courseId" id="course-frm-courseId">
+                            <button type="submit" class="btn waves-effect waves-light blue-color">Save</button>
+                            <a class="waves-effect waves-light  btn">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </div>
+        <div id="course-modules-tab" class="col s12">
+        
+            <div class="col s12 m12 l12" class="add-course-module-container">
+                <form name="add-course-module-frm">
+                    <div class="row">
+                    
+                        <!-- <h5 class="table-year">Create Course</h5>-->
+                        
+                        <div class="input-field col s12 m4 l4">
+                            <input id="cm-title" type="text" name="title" class="validate">
+                            <label for="cm-title" class="">Title</label>
+                        </div>
+
+                        <div class="input-field col s12 m4 l4">
+                            <select name="status">
+                                <option value="" disabled="">Select</option>
+                                <option value="Active" selected="">Active</option>
+                                <option value="InActive" >InActive</option>
+                            </select>
+                            <label>Status</label>
+                        </div>
+
+                          <div class="input-field col s12 m4 l4">
+                            <select name="resourceCatg">
+                                <option value="">Select</option>
+                                <option value="Study Materials">STUDY MATERIAL</option>
+                                <option value="Videos">VIDEOS</option>
+                                <option value="Circulars" >CIRCULARS</option>
+                                <!--  <option value="Quiz" >QUIZ</option>
+                                <option value="Assesssment">ASSESSMENT</option>  -->
+                            </select>
+                            <label>Resourse Category</label>
+                        </div>
+
+                        <div class="input-field col s12 m4 l4">
+                            {{ csrfField() }}
+                            <input type="hidden" value="0" name="courseId" id="course-module-frm-courseId">
+                            <button type="submit" class="btn waves-effect waves-light blue-color">Add Module</button>
+                            <a class="waves-effect waves-light  btn">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+
+</script>
+
+<script id="listCourse-template" type="text/html">
+ <!--data table start..........................................-->
+  <div class="col s12">
+    <table id="data-table-simple" class="responsive-table display" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Max Limit</th>
+                <th>Created On</th>
+                <th>Created By</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Promotion Exam</td>
+                <td>Course</td>
+                <td>10-02-2018</td>
+                <td>10-06-2018</td>
+                <td>100</td>
+                <td>10-02-2018</td>
+                <td>Admin</td>
+            </tr>
+            <tr>
+                <td>Mark to Market</td>
+                <td>Assessment</td>
+                <td>1-03-2018</td>
+                <td>15-05-2018</td>
+                <td>100</td>
+                <td>1-03-2018</td>
+                <td>Admin</td>
+            </tr>
+           
+        </tbody>
+    </table>
+  </div>
+  <!--data table end..............................-->
+</script>
+
+<script id="filterCourse-template" type="text/html">
+
+  <div class="input-field col s12 m4 l4">
+      <select>
+          <option value="" disabled="" selected="">Select</option>
+          <option value="1">Account</option>
+          <option value="2">Banking</option>
+          <option value="3" onClick "Typecategory()">Other</option>
+      </select>
+      <label>Category</label>
+  </div>
+
+  <div class="input-field col s12 m4 l4">
+      <select>
+          <option value="" disabled="">Select</option>
+          <option value="1" selected="">Active</option>
+          <option value="2">Inactive</option>
+      </select>
+      <label>Status</label>
+  </div>
+</script>
+<!-- End of Course Templates -->
+
+<script type="text/javascript" src="{{ assetsUrl('frontend/dashboard/vendors/data-tables/js/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ assetsUrl('frontend/dashboard/js/scripts/data-tables.js') }}"></script>
+
+
+<script type="text/javascript" src="{{ assetsUrl('frontend/dashboard/js/scripts/jquery.validate.min.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var task = {
+            init: function () {
+                //material select initialization
+                $('select').material_select();
+
+                // Pikadate datepicker
+                $(".datepicker").pickadate({
+                  selectMonths: true,
+                  format : 'yyyy-mm-d',
+                  min: true,
+                  closeOnSelect: true
+                });
+
+            }
+        }
+
+        /***********Start Circular Script***********/
+
+          var taskCircular = {
+
+            initCircularFrmEvent: function() {
+                $("form[name='create-circular-frm']").validate({
+                rules: {
+                        title: {required: true},
+                        type: {required: true},
+                        category: {required: true},
+                        subCategory: {required: true},
+                        file_path: {
+                                required: function(){
+                                    var action1 = $("form[name='create-circular-frm']").attr('action');
+                                    //here it is used for custom validation for the file_path input
+                                    if(action1 == "saveCircular"){
+                                        return true;
+                                    }else if(action1 == "updateCircular"){
+                                        return false;
+                                    }
+                                },
+                            },
+                    },
+
+                    messages: {
+                        title: {
+                            required: "Please enter title",
+                        },
+                        type: {
+                            required: "Please select type"
+                        },
+                        category: {
+                            required: "Please select category"
+                        },
+                        subCategory: {
+                            required: "Please select sub-category"
+                        },
+                        file_path: {
+                            required: "File is required and should be PDF, VIDEO and SCORM type"
+                        }
+                    },
+                   
+                    errorElement: 'div',
+
+                    errorPlacement: function(error, element) {
+                        var placement = $(element).data('error');
+                        if (placement) {
+                            $(placement).append(error)
+                        } else {
+                            error.insertAfter(element);
+                        }
+                    },
+
+                    submitHandler: function(form) {
+
+                        var data = new FormData(form);
+                        var action=  $(form).attr('action') ; 
+
+                        if( action == 'saveCircular'){
+                         app.saveCircular(data).done(function(response) {
+                                if ($.validateResponse(response)) {
+                                    if (response.status == true) {
+                                        Materialize.toast(response.message, 4000, '')
+                                        taskCircular.renderCircularList()
+                                    } else {
+                                        $.showValidationMessage(response.message)
+                                    }
+                                }
+                            })
+                        } else if(action == 'updateCircular'){
+                            
+                            app.updateCircular(data).done(function(response) {
+                                if (response.status == true) {
+                                 Materialize.toast(response.message, 4000, '')
+                                 taskCircular.renderCircularList()
+                                  } else {
+                                        $.showValidationMessage(response.message)
+                                    }
+                            });
+                        }
+                    }
+                });
+                $(document).on('click','.update-circular',function(){
+
+                 $("form[name='create-circular-frm']").attr('action' , 'updateCircular')
+                var  _id = $(this).attr('cirID').trim();
+                    var  search = {
+                        'id': _id
+                        }
+                     app.getCirculars(search).done(function(response) {
+                          if($.validateResponse(response)){
+                          taskCircular.renderCircularFormData(response.data[0])
+                          task.init()
+                          }
+                      })
+                });
+                
+
+            },
+
+            initAutoCompleteCatg: function() {
+                $("input.auto-complete-catg").on('keyup', function() {
+
+                    var keyword = $(this).val().trim();
+                    if (keyword.length > 0) {
+                        var search = {
+                            keyword: keyword,
+                            field: 'category'
+                        };
+                        var catData = {}
+                        app.getCircularCatSuggestions(search).done(function(response) {
+                            for (var key in response.data) {
+                                catData[response.data[key].category] = null
+                            }
+
+                            $("input.auto-complete-catg").autocomplete({
+                                data: catData,
+                                minLength: 1,
+                                limit: 10,
+                                onAutocomplete: function(val) { // Callback function when value is autcompleted.
+                                }
+                            });
+                        })
+                    }
+                });
+            },
+
+            initAutoCompleteSubCatg: function() {
+                $("input.auto-complete-subcatg").on('keyup', function() {
+
+                    var keyword = $(this).val().trim();
+                    if (keyword.length > 0) {
+                        var search = {
+                            keyword: keyword,
+                            field: 'subCategory'
+                        };
+                        var subcatData = {}
+                        app.getCircularCatSuggestions(search).done(function(response) {
+                            for (var key in response.data) {
+                                subcatData[response.data[key].subCategory] = null
+                            }
+
+                            $("input.auto-complete-subcatg").autocomplete({
+                                data: subcatData,
+                                minLength: 1,
+                                limit: 10,
+                                onAutocomplete: function(val) { // Callback function when value is autcompleted.
+                                }
+                            });
+                        })
+                    }
+                });
+
+            },
+
+            renderCircularForm: function() {
+                $('mb-form-container').html($('#addCircular-template').text());
+            },
+
+            renderCircularList: function() {
+                $('mb-list-container').html($('#listCircular-template').text());
+                 app.getCirculars().done(function(response) {
+                   if($.validateResponse(response)){
+                     taskCircular.renderCircularListData(response.data)
+                   }
+
+                 })
+            },
+
+            renderCircularListData:function(data){
+               var data_row = '';
+               $('tbody','.circular-table-list').html('');
+                $.each(data, function( index, list ) {
+                  var title = list.title;
+                  var type = list.type;
+                  var _id = list._id;
+                  var refNumber = list.refNumber;
+                  var createdAt = list.createdAt;
+                  var createdBy = list.createdBy;
+                  if(createdBy == undefined){
+                    createdBy = '';
+                  }
+                  
+                  data_row +='<tr class="odd">';
+                  data_row += '<td>'+title+'</td>';
+                  data_row += '<td>'+type+'</td>';
+                  data_row += '<td>'+refNumber+'</td>';
+                  data_row += '<td>'+createdAt+'</td>';
+                  data_row += '<td>'+createdBy+'</td>';
+                  data_row += '<td><div class = "circular-edit-button"><a href="javascript:void(0);" cirID="'+_id+'" class="waves-effect waves-block waves-light green-text tooltipped update-circular" data-position="top" data-delay="50" data-tooltip="Delete Group"><i class="material-icons">edit</i></a>';
+                  data_row += '<a href="javascript:void(0);" cirID="'+_id+'" class="waves-effect waves-block waves-light red-text tooltipped delete-circular" data-position="top" data-delay="50" data-tooltip="Delete Group"><i class="material-icons">delete</i></a></div></td>';
+                  data_row += '</tr>'
+                });
+                $('tbody','.circular-table-list').append(data_row);
+            
+            },
+
+    
+           renderCircularFormData:function(data){
+               $('#circular-title').val(data.title);
+               $('#cirType').val(data.type);
+               $('#circular-category').val(data.category);
+               $('#circular-subCategory').val(data.subCategory);
+               $('#circular-applies-to').val(data.appliesTo);
+               $('#circular-ref').val(data.refNumber);
+               $('#circular-keyword').val(data.keyword);
+               $('#objid').val(data._id);
+            },
+
+            deleteCircular:function(){
+                $(document).on('click','.delete-circular',function(e){
+
+                    e.preventDefault()
+                    var _id = $(this).attr('cirID').trim();
+                    var  search = { 'id': _id }
+                     swal({
+                            title: "Are you sure?",
+                            text: "Do you want to delete this user!",
+                            type: "warning",
+                            showCancelButton: true,
+                            closeOnConfirm: true,
+                            showLoaderOnConfirm: true, 
+                        },
+                        function(){
+                            
+                            app.deleteCircular(search).done(function(response) {
+                                 if($.validateResponse(response)){
+                                   // swal(response.message); 
+                                    Materialize.toast(response.message, 4000, '')
+                                    taskCircular.renderCircularList()
+                                 }
+                            });
+                            
+                        }
+                     )
+                 });
+            },
+
+
+
+        }
+
+        /***********End Circular Script***********
+
+
+        /**Start Course Script*/
+
+        var taskCourse = {
+           init: function () {
+                $('#course-tab').tabs();
+
+                $('select[name="resourceCatg"]').on('change' , function(e){
+                    var val =  $(this).val();
+                    taskCourse.renderAddResourcePopup(val)
+                })
+ 
+                $("form[name='add-resources-frm']").validate({
+                    rules: {
+                          title: {
+                              required: true
+                          },
+                          contentType: {
+                              required: true
+                          }
+                      },
+                      messages: {
+                          title:{
+                              required: "Please enter the title",
+                          }
+                      },
+                      errorElement : 'div',
+                      errorPlacement: function(error, element) {
+                      var placement = $(element).data('error');
+                          if (placement) {
+                              $(placement).append(error)
+                          } else {
+                              error.insertAfter(element);
+                          }
+                      },
+                      submitHandler : function(form){
+
+                          var data = new FormData(form);
+                          app.saveResource(data).done(function(response){
+                              if($.validateResponse(response)){
+                                  if(response.status == true){
+                                      taskCourse.renderResourceData()
+                                      Materialize.toast(response.message, 4000,'')
+                                      $(form).find("input[type=text], select").val("");
+                                  }else{
+                                      $.showValidationMessage(response.message)
+                                  }
+                              }
+                          })
+                      }
+              }); 
+
+              $(".add-resource-btn").click(function(){
+
+                 var resourceData = $("form[name='add-resource_frm']").serializeObject() ;
+                 var moduleData = $("form[name='add-course-module-frm']").serializeObject() ;
+                 var data = { module : moduleData ,  resource : resourceData }
+
+
+
+
+              })
+            },
+             renderAddResourcePopup : function(resourceCatg){
+                resourceCatg = resourceCatg || ''
+                    $('#add-resourse-popup').modal({
+                        dismissible: false,
+                        ready : function() {
+                            taskCourse.renderResourceData();
+                             $("#resource-list-tbl").DataTable({
+                              "bDestroy": true,
+                              "order": []
+                        });
+                        },
+                        complete : function(){
+                            $("form[name='add-resource_frm']").find('input[type="checkbox"]').prop( "checked" , false );
+                        }
+                    });
+                $("mb-resourceTitle").html('').append(resourceCatg)
+                $('#add-resourse-popup').modal('open');
+            },
+
+            renderResourceData : function(){
+                app.getAllResource().done(function(response){
+                     if($.validateResponse(response) && response.status == true){
+                        $('tbody','#resource-list-tbl').html('')
+                        var data =  response.data ; 
+                        var htm = ''
+                      
+                        $.each(data, function( index, list ) {
+                            var resourceValue = list.itemCode + '##' + list.title + '##' + list.type
+                            htm = '<tr>'
+                            htm += '<td><p><input name="resourceDetails" value="' + resourceValue + '" type="checkbox" id="R_' + index + '" /> '
+                            htm += '<label for="R_' + index + '">' +  list.itemCode + '</label> </p></td>'
+                            htm += '<td><p>' +  list.title + '</p></td>'
+                            htm += '<td><p>' +  list.author + '</p></td>'
+                            htm += '<td><p>' +  list.type + '</p></td>'
+                            htm += '</tr>'
+                            $('tbody','#resource-list-tbl').append(htm)
+                        })
+                     }
+                })
+            },
+
+            initCourseFrmSubmit : function(){
+                taskCourse.renderCourseModuleFrm('ssss')
+                $("form[name='add-course-frm']").validate({
+                      rules: {
+                          title: {
+                              required: true
+                          }
+                      },
+                      messages: {
+                          title:{
+                              required: "Please enter course title",
+                          },
+                      },
+                      errorElement : 'div',
+                      errorPlacement: function(error, element) {
+                      var placement = $(element).data('error');
+                          if (placement) {
+                              $(placement).append(error)
+                          } else {
+                              error.insertAfter(element);
+                          }
+                      },
+                      submitHandler : function(form){
+                          var data = $(form).serializeObject() ;
+                          app.saveCourse(data).done(function(response){
+                              if($.validateResponse(response)){
+
+                                  if(response.status == true){
+                                      Materialize.toast(response.message, 4000,'')
+                                      $(form).find('input[name="courseId"]').val(response.data['courseId'])
+                                      taskCourse.renderCourseModuleFrm(response.data['courseId'])
+                                  }else{
+                                      $.showValidationMessage(response.message)
+                                  }
+                              }
+                          })
+                      }
+              }); 
+            },
+
+            renderCourseModuleFrm: function (courseId) {
+                courseId = courseId || ''
+                if(courseId == ''){
+                    $.showValidationMessage('Invalid courseID you have passed')
+                    return false;
+                }
+                $(".course-modules-tab-li").removeClass('disabled')
+                $('#course-tab').tabs('select_tab', 'course-modules-tab');
+                $('#course-module-frm-courseId').val(courseId);
+            },
+
+
+            renderCourseModuleResource: function () {
+                $('mb-form-container').html($('#addCourse-template').text());
+            },
+
+
+
+            renderCourseAddForm: function () {
+                $('mb-form-container').html($('#addCourse-template').text());
+            },
+
+            renderCourseList: function () {
+                //$('mb-list-container').html($('#listCourse-template').text());
+                $('mb-list-container').html('');
+            },
+
+            renderCourseFilter: function () {
+                $('mb-filter-container').html($('#filterCourse-template').text());
+            }
+        }
+
+
+        /**End Course Script*/
+
+
+    function renderContent(contentType){
+       if (contentType == "Course") {
+                taskCourse.renderCourseAddForm()
+                taskCourse.renderCourseFilter()
+                taskCourse.renderCourseList()
+                task.init()
+                taskCourse.init()
+                taskCourse.initCourseFrmSubmit()
+      } else if (contentType == "Quiz") {
+                //  $el.html($("#addQuiz-template").html());
+            } else if (contentType == "Circular") {
+                taskCircular.renderCircularForm()
+                task.init()
+                taskCircular.initCircularFrmEvent()
+                taskCircular.initAutoCompleteCatg()
+                taskCircular.initAutoCompleteSubCatg()
+                taskCircular.renderCircularList()
+                taskCircular.deleteCircular()
+            }
+    }
+
+  $(document).on('click' , '#content-create',function () {
+      var taskName = $("#content-type option:selected").text();
+      renderContent(taskName)
+
+      $('html, body').animate({
+        scrollTop: $("mb-form-container").offset().top + 50
+      }, 1000);
+
+
+  })
+
+});
+</script>
+
+<!--end container-->
+@endsection
+
+
+
+
+var search = '';   
+                app.getCirculars(search).done(function(response) {
+                        if ($.validateResponse(response)) {
+                           taskCircular.renderSelectGroup(response.data)
+                           taskCircular.renderSelectSubGroup(response.data)
+                           taskCircular.renderSelectYear(response.data)
+                        }
+                })       
+
+
+
+
+
+                 <div class="col s12 m12 l12">
+                    <div class="card">
+                    <div class="card-content" style="padding: 0px;">
+                    <table id="circular-list-tbl" class="responsive-table display circular-table-list dataTable no-footer " cellspacing="0">
+                        <thead>
+                            <tr role="row">
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Department</th>
+                                <th>Location</th>
+                                <th>Designation</th> 
+                                <th>status</th>                               
+                            </tr>
+                        </thead>
+                       <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+        renderUserData : function(data){
+
+                if(data.status == true && data.data.length > 0){
+                    data = data.data ; 
+
+                    var $el = $( '<mb-userList></mb-userList>' );
+                    $el.html($("#user-list-template").text());
+                     $('mb-userList').html('')
+
+                    $.each(data, function( index, list ) {
+
+                        $el.find('mb-empId').html(list.empId);
+                        $el.find('mb-name').html(list.name);
+                        $el.find('mb-email').html(list.email);
+                        //$el.find('mb-department').html(list.profile.department);
+                        $el.find('mb-designation').html(list.designation);
+                        
+                        if(list.status != 'Active'){
+                           $el.find('mb-status').closest('span').removeClass('green-text').addClass('red-text')
+                        }
+
+                        $el.find('mb-status').html(list.status);
+                        var btn = '<a class="waves-effect waves-light btn" href="/admin/my-dashboard/edit-users/'+list._id+'" >Edit</a>';
+                            btn += ' &nbsp;<a class="waves-effect waves-light btn delete-user" _id="'+list._id+'" >Delete</a>';
+
+                        $el.find('mb-actions').html(btn);
+                        $('mb-userList').append(  $el.html() )
+                    })
+
+                }
+                else{
+                    $('mb-userList').html( '<center><h6>Sorry.! No result found..</h6></center>' )
+                }
+
+                task.init();
+            }
+
+
+
+
+{
+    "_id" : ObjectId("5aceffe03dc05c33f8e35473"),
+    "name" : "arun",
+    "email" : "arun1@mintbook.com",
+    "empId" : 41,
+    "password" : "$2a$10$kuxKyJZCpnn4rCB3B5tUWOT8agnhXRdrkoHZqRZHLQvuIzE.EzPry",
+    "roles" : [ 
+        "Reader"
+    ],
+    "designation" : "payroll",
+    "department" : "Accounts",
+    "reportingManager" : "Arun",
+    "location" : "Bangalore",
+    "status" : "Active",
+    "group" : [ 
+        {
+            "_id" : "5acdc1287e6eb61817ce15ad",
+            "name" : "Accounts"
+        }
+    ],
+    "subGroup" : [],
+    "verificationToken" : "10054d8d3abe963940ffc63218fcfb0f245bd6d320f9000c748533a87bf49720",
+    "verified" : true,
+    "coverImage" : "",
+    "createdAt" : ISODate("2018-04-12T06:42:40.073Z"),
+    "updatedAt" : ISODate("2018-04-12T06:50:33.877Z")
+}
+
+
+
+1. Should be able to add users (bulk import)	
+
+
+
+1. Edit status	
+
+
+2. Pagination with filters & search for	
+
+Filter	
+Status	
+Department	
+Location	
+Designation	
+
+Search	
+Username, email, mobile, department, location, designation	
+
+3. Add individual user	
+
+
+
+
+e.preventDefault();
+            $(".import-file").val(''); 
+            var data = new FormData(this) 
+            app.uploadUsers(data).done(function(response){
+                if ($.validateResponse(response)) {
+                    if (response.status == true) {
+                        Materialize.toast(response.message, 4000, '')
+                        task.loadUsers();
+                    }
+                    else{
+                        $.showValidationMessage(response.message)
+                    }
+                }
+            })
+
+
+
+
+/*******Resource table data*******/
+ <tr>
+                           <td>
+                              <p class="collections-title inline-editable">Science Aand Technology</p>
+                           </td>
+                           <td>
+                              <p href="#create-subgroup-popup" class="green-text thumb-pointer modal-trigger">4 Sub Group</p>
+                           </td>
+                           <td>
+                              <p>100 Members</p>
+                           </td>
+                           <td>
+                              <div class="switch">
+                                 <label>
+                                 Off
+                                 <input type="checkbox">
+                                 <span class="lever"></span>
+                                 On
+                                 </label>
+                              </div>
+                           </td>
+                           <td>
+                              <p>
+                              <form action="#">
+                                 <p>
+                                    <input type="checkbox" id="test1" />
+                                    <label for="test1"></label>
+                                 </p>
+                              </form>
+                              </p>
+                           </td>
+                           <td class="actionicon">
+                              <a href="javascript:void(0);" class="waves-effect waves-block waves-light red-text tooltipped" data-position="top" data-delay="50" data-tooltip="Delete Group">
+                              <i class="material-icons">delete</i>
+                              </a>
+                              <a href="javascript:void(0);" class="waves-effect waves-block waves-light tooltipped" data-position="top" data-delay="50" data-tooltip="View Members">
+                              <i class="material-icons">visibility</i>
+                              </a>
+                              <a href="#add-people-popup" class="waves-effect waves-block waves-light green-text tooltipped modal-trigger" data-position="top" data-delay="50" data-tooltip="Add People">
+                              <i class="material-icons">create</i>
+                              </a>
+                           </td>
+                        </tr>
+
+
+
+
+            const rules = {
+                name: 'required',
+                resourceType: 'required',
+            }
+            const message = {
+                'name.required': 'Please enter the title'
+            }
+
+            //Available content type
+            let ContentType = this.AppConfig.contentType
+            let _id = ''
+            const postData = request.post()
+            //Validate content type which passing from frontend 
+            
+            const isValidContentType = Object.values(ContentType).includes(postData['contentType'])
+
+            if (isValidContentType == false) {
+                res.status = false
+                res.validation = false
+                res.message = "Invalid resource type"
+            } else {
+
+                // upload directory
+                const filePath = this.Helper.resourcesPath('files/' + postData['contentType'])
+
+                let itemCode = await ResourceHelper.getItemCode({ _id: postData['obj_id'] })
+
+                // New resourse data
+                if (itemCode == null) {
+
+                    itemCode = 'MINT-' + await this.AppHelper.getUniqueId()
+
+                    //TODO : File type check for each content type and set max upload size
+                    const uploadFile = await request.file('file', {
+                        types: ['pdf', 'mp4', 'zip'], //TODO : Add scorm file type
+                        size: '10mb'
+                    })
+                    await uploadFile.move(filePath, { name: itemCode })
+                } else {
+                    await uploadFile.move(filePath, { name: itemCode })
+                    postData['itemCode'] = itemCode
+                    postData['status'] = postData['status'] || 'Active'
+                    _id = await ResourceHelper.save(postData)
+
+                }
+
+                if (_id != '') {
+                    res.data.resourceId = _id
+                } else {
+                    res.status = false
+                    res.message = 'Data could not save,try again'
+                }
+
+
+            }
+
+            if (!uploadFile.moved()) {
+                const error = uploadFile.error()
+                res.status = false
+                res.validation = false
+                res.message = error['message']
+            } else {
+                
+                //move the file to destination folder 
+
+                postData['fileFormat'] = uploadFile['subtype']
+                postData['itemCode'] = itemCode
+                postData['coverImage'] = ''
+                postData['createdBy'] = auth.user.name
+                postData['updatedBy'] = auth.user.name
+
+                _id = await ResourceHelper.save(postData)
+            }
+
+
+
+            response.send(res)
+
+        } catch (error) {
+
+           
+
+        }
+
+
+
+//user data
+        $(document).ready(function() {
+
+    var task = {
+            
+            init: function(){
+
+                $('.delete-user').click(function(e) {
+                    e.preventDefault()
+                    var _id = $(this).attr('_id')
+                swal({   
+                    
+                  title: "Are you sure?",
+                  text: "Do you want to delete this user!",
+                  type: "warning", 
+                
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true, },
+                    function(){
+                        app.deleteUser(_id).done(function(response){
+                               // Materialize.toast(response.message, 4000,'')
+                                swal(response.message); 
+                                task.loadUsers()
+                            })
+                  });
+                });
+                $('select').material_select();
+               
+
+            },
+            
+            loadUsers : function(){
+                var formData =  $("#user-search-frm").serializeObject()
+                formData = formData || ''
+            
+                app.getAllReaders(formData).done(function(response){
+                    if ($.validateResponse(response)) {
+                    task.renderUserData(response);
+                    task.init();
+                    
+                    }
+                });
+                
+            },
+
+            renderUserData : function(data){
+                
+                var data_row = '';
+                var switch1 = '';
+                $('tbody', '#circular-list-tbl').html('');
+                if(data.status == true && data.data.length > 0){
+                    data = data.data ; 
+                    $.each(data, function( index, list ) {
+                        var username = list.name;
+                        var email = list.email;
+                        var mobile = list.mobile;
+                        var dept = list.department;
+                        var location = list.location;
+                        var desgn = list.designation;
+                        var status = list.status;
+                        var switchData = '<div class="switch"><label>InActive<input checked type="checkbox" uid="'+list._id+'" class="status-check" user-status="'+list.status+'"><span class="lever"></span>Active</label></div>'
+                        
+                        if(status != 'Active'){
+                            switchData = '<div class="switch"><label>DeActive<input  type="checkbox" uid="'+list._id+'" class="status-check" user-status="'+list.status+'"><span class="lever"></span>Active</label></div>';
+                        }
+
+                        data_row += '<tr>';
+                        data_row += '<td>'+username+'</td>';
+                        data_row += '<td>'+email+'</td>';
+                        data_row += '<td>'+mobile+'</td>';
+                        data_row += '<td>'+dept+'</td>';
+                        data_row += '<td>'+location+'</td>';
+                        data_row += '<td>'+desgn+'</td>';
+                        data_row += '<td>'+switchData+'</td>';
+                        data_row += '</tr>'
+                    })
+                     $('tbody', '#circular-list-tbl').append(data_row);
+                    
+                }
+                else{
+                    $('mb-userList').html( '<tr><td><h6>Sorry.! No result found..</h6></td></tr>' )
+                }
+                task.init();
+                task.toggleUserActive();  
+            },
+
+            toggleUserActive:function(){
+                $('.status-check').change(function(){
+                    var id = $(this).attr('uid');
+                    var status = $(this).attr('user-status');
+                    data ={
+                        'userID':id,
+                        'status':status
+                    };
+                    app.toggleStatus(data).done(function(response){
+                         if ($.validateResponse(response)) {
+                             if (response.status == true) {
+                                Materialize.toast(response.message, 4000, '')
+                            } else {
+                                $.showValidationMessage(response.message)
+                            }
+                        }
+                    })
+                })
+            }
+            
+}
+    var taskUser={
+        init:function(){
+            taskUser.initUserFormEvent();
+            taskUser.renderUserFilter();
+           
+        }
+        ,
+        initUserFormEvent:function(){
+                    $("form[name='add-user-frm']").validate({
+                        rules: {
+                        empId:{required:true},
+                        username: {required: true},
+                        email: {required: true},
+                        mobile: {
+                            required: true,
+                            number:true,
+                            maxlength:10,
+                            minlength:10
+                            },
+                        department: {required: true},
+                        location:{required: true},
+                        designation:{required: true},
+                        profile:{required: true},
+                        password:{required: true},
+                        reportingManager:{required:true}
+                        },
+                        message:{
+                        empId:{required:'Employee id required'},
+                        username: {required: 'User name required'},
+                        email: {required: 'Email required'},
+                        mobile: {
+                            required: 'Mobile number required',
+                            number:'Digits required',
+                            maxlength:'Should be 10 digits',
+                            minlength:'Should be 10 digits'
+                            },
+                        department: {required: 'Select an option'},
+                        location:{required: 'Location required'},
+                        designation:{required: 'Select an option'},
+                        profile:{required: 'Seclect an option'},
+                        password:{required: 'Password required'}, 
+                        reportingManager:{required:'Reporting manager name required'},   
+                        },
+                        errorElement: 'div',
+                        errorPlacement: function(error, element) {
+                            var placement = $(element).data('error');
+                                if (placement) {
+                                    $(placement).append(error)
+                                } else {
+                                     error.insertAfter(element);
+                                }
+                        },
+                        submitHandler: function(form) {
+                        var data = new FormData(form);
+                        app.saveUser(data).done(function(response) {
+                                if ($.validateResponse(response)) {
+                                    if (response.status == true) {
+                                        Materialize.toast(response.message, 4000, '')
+                                        task.loadUsers();
+                                    } else {
+                                        $.showValidationMessage(response.message)
+                                    }
+                                }
+                        });
+                        }
+
+                    });
+                 
+
+        }
+        ,
+        renderUserFilter:function(){
+            var formData = '';
+            app.getAllReaders(formData).done(function(response){
+                   taskUser.renderUserDesignation(response.data);
+                    taskUser.renderUserLocation(response.data);
+                    taskUser.renderUserDepartment(response.data);
+                    task.init();
+            })
+        }
+        ,
+        renderUserDesignation(data){
+                 var catData ={};
+                 //console.log(data)
+                    for (var key in data) {
+                        if(data[key].designation != undefined)
+                            catData[data[key].designation] = data[key].designation;
+                    }                    
+                    var select = $('#desgn');
+                    if(select.prop) {
+                    var options = select.prop('options');
+                    }
+                    else {
+                    var options = select.attr('options');
+                    }
+                    $.each(catData, function(val, text) {
+                        if(text!=null){
+                        options[options.length] = new Option(text, val);
+                        }
+                        
+                    });
+        },
+
+        renderUserLocation(data){
+                var catData ={};
+                 //console.log(data)
+                    for (var key in data) {
+                        if(data[key].location != undefined)
+                            catData[data[key].location] = data[key].location;
+                    }
+                    var select = $('#loc');
+                    if(select.prop) {
+                    var options = select.prop('options');
+                    }
+                    else {
+                    var options = select.attr('options');
+                    }
+                    $.each(catData, function(val, text) {
+                        if(text!=null){
+                        options[options.length] = new Option(text, val);
+                        }
+                        
+                    });
+        },
+
+        renderUserDepartment(data){
+            var catData ={};
+                // console.log(data)
+                    for (var key in data) {
+                        if(data[key].department != undefined)
+                            catData[data[key].department] = data[key].department;
+                    }
+                    var select = $('#dept');
+                    if(select.prop) {
+                    var options = select.prop('options');
+                    }
+                    else {
+                    var options = select.attr('options');
+                    }
+                    $.each(catData, function(val, text) {
+                        if(text!=null){
+                        options[options.length] = new Option(text, val);
+                        }
+                        
+                    });
+        }
+}
+        
+        task.loadUsers();
+        taskUser.init(); 
+        
+               
+
+        $('#upload-user').change(function() {
+            $(this).closest('form').submit();
+        });
+
+        $('#upload-users-frm').submit(function(e){
+            e.preventDefault();
+            var data = new FormData(this) 
+            app.uploadUsers(data).done(function(response){
+                if ($.validateResponse(response)) {
+                    if (response.status == true) {
+                        $(".import-file").val(''); 
+
+                            if(response.message !=  ''){
+                                Materialize.toast(response.message, 4000, '')
+                             }
+                      
+                        task.loadUsers();
+
+                        if(response.importError ==  true){
+                          $.showValidationMessage(response.ImportErrorMessage)
+                        }
+                    }
+                    else{
+                        $.showValidationMessage(response.message)
+                    }
+                }
+            })
+         })
+
+        $('#filter-search').on('click',function(){
+          task.loadUsers();
+           $("#circular-list-tbl").DataTable({
+                            "pageLength":5,
+                            "bDestroy": true,
+                            "order": [],
+                    });
+        })
+
+     
+
+ });
+
+
+ //data table 
+ $("#resource-table").DataTable({
+                    "pageLength":5,
+                    "bDestroy": true,
+                    "order": []
+             });
+
+             var catData ={};
+                 //console.log(data)
+                    for (var key in data) {
+                        if(data[key].designation != undefined)
+                            catData[data[key].designation] = data[key].designation;
+                    }                    
+                    var select = $('#desgn');
+                    if(select.prop) {
+                    var options = select.prop('options');
+                    }
+                    else {
+                    var options = select.attr('options');
+                    }
+                    $.each(catData, function(val, text) {
+                        if(text!=null){
+                            if(text == "fc" ){
+                                text = "Financial controls";
+                            }
+                            if(text == "fr"){
+                                text = "Financial reporting";
+                            }
+                        options[options.length] = new Option(text, val);
+                        }
+                        
+                    });
+
+                     const data = await UserModel.where().aggregate([{ $group: { _id: { $toLower: "$" + field } } }])
+
+
+
+    /*  
+    deleteResource:function(){
+        $('.delete-resource').on('click',function(){
+            var _id =  $(this).attr('res-id');
+            var data = {resid : _id} 
+            swal({   
+                        
+                    title: "Are you sure?",
+                    text: "Do you want to delete this user!",
+                    type: "warning", 
+                    
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true, },
+                function(){
+                        app.deleteResource(data).done(function(response){
+                            if ($.validateResponse(response)) {
+                            swal(response.message); 
+                            taskResource.loadResources();
+                            }
+                    });
+                });
+            });
+    },
+
+        */
+
+         /* initAutoCompleteKeyword:function(){
+                $("input.auto-complete-keyword").on('keyup', function() {
+    
+                    var keyword = $(this).val().trim();
+                    if (keyword.length > 0) {
+                        var search = {
+                            keyword: keyword,
+                            field: 'keyword'
+                        };
+                        var keywordData = {}
+                        app.getResourceKeywords(search).done(function(response) {
+                            //console.log(response);
+                            for (var key in response.data) {
+                                keywordData[response.data[key].keyword] = null
+                            }
+    
+                            $("input.auto-complete-keyword").autocomplete({
+                                data: keywordData,
+                                minLength: 1,
+                                limit: 10,
+                                onAutocomplete: function(val) { // Callback function when value is autcompleted.
+                                }
+                            });
+                        })
+                    }
+                });
+    },*/
+
+
+
+
+ <!-- profile-page-content -->
+         <div id="profile-page-content" class="row">
+            <!-- profile-page-sidebar-->
+<div class="col s12 m4">
+                  <ul id="profile-page-about-details" class="collection z-depth-1 collection_new1">
+                     <li class="collection-item">
+                        <div class="row">
+                           <div class="col s7">
+                              <i class="material-icons left">domain</i>Designation
+                           </div>
+                           <div class="col s5 right-align">{{ (profile.designation) ? profile.designation : '---'  }} </div>
+                        </div>
+                     </li>
+                     <li class="collection-item">
+                        <div class="row">
+                           <div class="col s12 ">
+                              <h6><i class="material-icons left ">group</i> Groups</h6>
+                           </div>
+                        </div>
+                     </li>
+                     <li class="collection-item">
+                        <div class="row">
+                           <div class="col s7">
+                              <i class="material-icons left">trending_flat</i>Accounts
+                           </div>
+                        </div>
+                     </li>
+                     <li class="collection-item">
+                        <div class="row">
+                           <div class="col s7">
+                              <i class="material-icons left">trending_flat</i>General
+                           </div>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <!-- flight-card -->
+               <!-- flight-card -->
+               <!-- Profile Total sell -->
+              <!-- <div class="col s12 m4">
+                  <a href="/my-dashboard/my-course" class="white-text">
+                     <div class="card center-align">
+                        <div class="card-content cyan  white-text">
+                           <h4 class="card-stats-title">Courses</h4>
+                           <p class="card-stats-compare">
+                              <i class="material-icons">keyboard_arrow_up</i> 2
+                              <span class="cyan text text-lighten-5">Completed</span>
+                           </p>
+                        </div>
+                        <div class="card-action cyan darken-1">
+                           <div id="clients-bar" class="center-align"></div>
+                        </div>
+                     </div>
+                  </a>
+               </div>
+               <div class="col s12 m4">
+                  <a href="/my-dashboard/score-card" class="white-text">
+                     <div class="card center-align">
+                        <div class="card-content red accent-2 white-text">
+                           <h4 class="card-stats-title">Score Card</h4>
+                           <p class="card-stats-compare">
+                              <i class="material-icons">keyboard_arrow_up</i> 2
+                              <span class="red accent-2 text text-lighten-5">Completed</span>
+                           </p>
+                        </div>
+                        <div class="card-action red accent-2 ">
+                           <div id="clients-bar" class="center-align"></div>
+                        </div>
+                     </div>
+                  </a>
+               </div>-->
+
+
+                <div id="profile-page-sidebar">
+               <!-- Profile About Details  -->
+               
+            </div>
+            
+         </div>
+
+
+
+
+/******************confirm password validation**************************/
+<html>
+ 
+<head>
+    <title> Password and Confirm Password Validation Using Jquery </title>
+    <script type="text/javascript" src="http://www.technicalkeeda.com/js/javascripts/plugin/jquery.js"></script>
+    <script type="text/javascript" src="http://www.technicalkeeda.com/js/javascripts/plugin/jquery.validate.js"></script>
+    <script>
+    function validatePassword() {
+        var validator = $("#loginForm").validate({
+            rules: {
+                password: "required",
+                confirmpassword: {
+                    equalTo: "#password"
+                }
+            },
+            messages: {
+                password: " Enter Password",
+                confirmpassword: " Enter Confirm Password Same as Password"
+            }
+        });
+        if (validator.form()) {
+            alert('Sucess');
+        }
+    }
+ 
+    </script>
+</head>
+ 
+<body>
+    <form method="post" id="loginForm" name="loginForm">
+        <table cellpadding="0" border="1">
+            <tr>
+                <td>Password</td>
+                <td><input tabindex="1" size="40" type="password" name="password" id="password" /></td>
+            </tr>
+            <tr>
+                <td>Confirm Password</td>
+                <td><input tabindex="1" size="40" type="password" name="confirmpassword" id="confirmpassword" /></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input tabindex="3" type="button" value="Submit" onClick="validatePassword();" /></td>
+            </tr>
+        </table>
+    </form>
+</body>
+ 
+</html>
+
+
+******************scrollTop*********************
+------------------------------------------------
+$('html, body').animate({ scrollTop: 100 }, 'slow');
+
+
+********************mailing********************
+-----------------------------------------------
+
+await Mail.send(template, data, (message) => {
+                message
+                    .to(to)
+                    .from(from)
+                    .subject(subject)
+            })
+
+******************customize the router **********************
+use('require-all')(`${use('Helpers').appRoot()}/app/Routes/`)
+
+********************Base model*****************************
+'use strict'
+
+const Model = use('Model')
+class BaseModel extends Model {
+    static _bootIfNotBooted() {
+        if (this.name !== 'BaseModel') {
+            super._bootIfNotBooted()
+        }
+    }
+
+}
+
+module.exports = BaseModel
+
+**********************userModel****************************
+
+'use strict'
+
+const BaseModel = use('App/Models/BaseModel')
+
+
+/**
+ * USER SCHEMA
+ * { 
+ *  _id :
+ *  name :
+ *  email :
+ *  password :
+ *  role : ['Reader','Admin','SuperAdmin','Developer']
+ *  verificationToken :
+ *  verified :
+ *  status :
+ *  group : ['_id' , '_id']
+ *  subGroup : ['_id' , '_id']
+ *  createdAt :
+ *  createdAt :
+ *  updatedAt :
+ * }
+ * 
+ */
+
+class User extends BaseModel {
+
+    // timestamp
+    static get createdAtColumn() { return 'createdAt' }
+    static get updatedAtColumn() { return 'updatedAt' }
+        //Hiding the user’s password,verified and verificationToken from the JSON output
+    static get hidden() { return ['password', 'verified', 'verificationToken'] }
+
+    static boot() {
+        super.boot()
+
+        /**
+         * A hook to bash the user password before saving
+         * it to the database.
+         *
+         * Look at `app/Models/Hooks/User.js` file to
+         * check the hashPassword method
+         */
+        this.addHook('afterUpdate', 'User.hashPassword')
+
+        this.addHook('beforeCreate', 'User.hashPassword')
+
+    }
+
+    /**
+     * A relationship on tokens is required for auth to
+     * work. Since features like `refreshTokens` or
+     * `rememberToken` will be saved inside the
+     * tokens table.
+     *
+     * @method tokens
+     *
+     * @return {Object}
+     */
+    tokens() {
+        return this.hasMany('App/Models/Token', '_id', 'userId')
+    }
+
+    // /**
+    //  * User Profile 
+    //  */
+
+    // profile() {
+    //   return this.hasOne('App/Models/UserProfile', '_id', 'userId')
+    // }
+
+    /**
+     * My Course 
+     */
+
+    myCourse() {
+        return this
+            .belongsToMany('App/Models/Course', 'userId', 'courseId', '_id', '_id')
+            .pivotModel('App/Models/UserCourse')
+            .withPivot(['status', 'startDate', 'endDate', 'startedAt', 'endAt', 'obtainedScore', 'noOfReattempt', 'completionStatus', 'IsMyAddition', 'assignedBy'])
+    }
+ 
+    /**
+     * Activity Log
+     */
+    activityLog() {
+        return this.hasMany('App/Models/UserActivityLog')
+    }
+
+}
+module.exports = User
+
+
+
+if (postData['contentType'] == "Scorm" && uploadFile['subtype'] == 'zip') {
+
+                            const sourcePath = await this.Helper.tmpPath('uploads/imports')
+
+                            let destinitionPath = await this.Helper.resourcesPath('files/' + postData['contentType'])
+
+                            destinitionPath += '/MINT-' + itemCode.substring(6) + '/'
+
+                            await uploadFile.move(sourcePath, { name: itemCode })
+
+                            const fileExtractResult = await ResourceHelper.zipFileExtract(sourcePath + '/' + itemCode, destinitionPath)
+
+
+                            uploadFile['size'] = 0
+
+                        }
+
+
+                        //upload directory
+                        let filePath = await this.Helper.resourcesPath('files/' + resType)
+
+                        // getting itemcode for updating the resource
+                        let servData = await ResourceHelper.getItemCode({ _id: _id }) || []
+
+                        // this is checking for updating the itemCode and file format if there
+                        if (servData.length > 0) {
+                            itemCode = servData[0].itemCode || false
+                            fileFormat = servData[0].format
+                        }
+
+                        // if itemCode is note there means create a new one
+                        if (itemCode == false || itemCode == null) {
+                            itemCode = 'MINT-' + await this.AppHelper.getUniqueId()
+                        }
+
+                        // setup the resource type
+                        postData['type'] = resType
+                        postData['coverImage'] = ''
+                        postData['createdBy'] = auth.user.name
+                        postData['updatedBy'] = auth.user.name
+                        postData['itemCode'] = itemCode
+                        postData['fileFormat'] = fileFormat
+
+                        //if _id is there meant the data is going to update so createdBy attribute deleted from the postData
+                        if (_id != 0) {
+                            delete postData['createdBy']
+                        }
+
+                        //creating a file object
+                        const uploadFile = await request.file('file', {
+                            types: ['pdf', 'mp4', 'zip'], //TODO : Add scorm file type
+                            //size: '10mb'
+                        })
+
+                        // CHECKING THAT THE USER GOING TO UPDATE DATA WITH NEW FILE OR EXISTING ONE
+                        if (uploadFile['size'] == 0) {
+                            _id = await ResourceHelper.save(postData)
+                        } else {
+
+                            // checking the file is exists or not if exists remove
+                            const exists = await Drive.exists(filePath + '/' + itemCode)
+                            if (exists) {
+                                await Drive.delete(filePath + '/' + itemCode)
+                            }
+                            // checking the resource type is scorm if scorm then execute the followig 
+                            if (postData['contentType'] == "Scorm" && uploadFile['subtype'] == 'zip') {
+                                let destinitionPath = await this.Helper.resourcesPath('files/' + resType)
+                                destinitionPath += '/MINT-' + itemCode.substring(6) + '/'
+                                await uploadFile.move(filePath, { name: itemCode })
+                                if (!uploadFile.moved()) {
+                                    const error = uploadFile.error()
+                                    console.log(error.code)
+                                    res.status = false
+                                    res.validation = false
+                                    res.message = error['message']
+                                } else {
+                                    const fileExtractResult = await ResourceHelper.zipFileExtract(filePath + '/' + itemCode, destinitionPath)
+                                    if (fileExtractResult == false) {
+                                        res.message = 'Something wromg in the uploaded file'
+                                    }
+                                }
+
+                            } else {
+                                // this block only for the video and ebook
+                                await uploadFile.move(filePath, { name: itemCode })
+                                    // checking that file is moved to destined folder or not
+                                if (!uploadFile.moved()) {
+                                    const error = uploadFile.error()
+                                    console.log(error.code)
+                                    res.status = false
+                                    res.validation = false
+                                    res.message = error['message']
+                                } else {
+                                    postData['fileFormat'] = uploadFile['subtype']
+                                    _id = await ResourceHelper.save(postData)
+                                }
+
+                            }
+
+                        }
+
+
+ return new Promise((resolve, reject) => {
+            try {
+                let extractZip = extract(sourcePath, {
+                    dir: destinitionPath,
+                    defaultDirMode: '/0755',
+                    defaultFileMode: '/0644',
+
+                }, function(err) {
+                    if (err) {
+                        console.log(err)
+                        reject(false)
+                    } else { resolve(true) }
+                })
+            } catch (error) {
+                reject(false)
+            }
+        })
+
+
+
+         const postData = request.post()
+            let _id = 0
+            let title = postData['title']
+            const resType = postData['type'] || postData['contentType']
+
+
+
+             $(document).ready(function(){
+   
+  
+    $('#SelectReport').on('change', function(){
+      alert($(this).val())
+      var optionCase = $(this).val();
+      switch(optionCase){
+        case "CO" :
+              $('#data-overview-table').attr('dataTableName','course-overview-table')
+              break;
+        case "UO" :
+              $('#data-overview-table').attr('dataTableName','user-overview-table')
+              break;
+        case "UGO" :
+              $('#data-overview-table').attr('dataTableName','user-grade-overview-table')
+              break;      
+      }
+    })
+    
+  })
+
+
+
+  
+
+
+   
+<tr role="row" class="odd">
+                           <td>1</td>
+                           <td>Science and Technology</td>
+                           <td><a class="modal-trigger" href="#user-list-popup">20</a></td>
+                        </tr>
+                        <tr role="row" class="odd">
+                           <td>2</td>
+                           <td>Science and Technology</td>
+                           <td><a class="modal-trigger" href="#user-list-popup">20</a></td>
+                        </tr>
+                        <tr role="row" class="odd">
+                           <td>3</td>
+                           <td>Science and Technology</td>
+                           <td><a class="modal-trigger" href="#user-list-popup">20</a></td>
+                        </tr>
+                        <tr role="row" class="odd">
+                           <td>4</td>
+                           <td>Science and Technology</td>
+                           <td><a class="modal-trigger" href="#user-list-popup">20</a></td>
+                        </tr>   
+
+<tr role="row" class="odd">
+                        <td>1</td>
+                        <td>MINT112403</td>
+                        <td>
+                          <div class="progress">
+                            <div class="determinate" style="width: 70%"></div>
+                          </div>
+                        </td>
+                    </tr>
+                    <tr role="row" class="odd">
+                        <td>2</td>
+                        <td>MINT112403</td>
+                        <td>
+                          <div class="progress">
+                            <div class="determinate" style="width: 70%"></div>
+                          </div>
+                        </td>
+                    </tr>
+                    <tr role="row" class="odd">
+                        <td>3</td>
+                        <td>MINT112403</td>
+                        <td>
+                          <div class="progress">
+                            <div class="determinate" style="width: 70%"></div>
+                          </div>
+                        </td>
+                    </tr>
+                    <tr role="row" class="odd">
+                        <td>4</td>
+                        <td>MINT112403</td>
+                        <td>
+                          <div class="progress">
+                            <div class="determinate" style="width: 70%"></div>
+                          </div>
+                        </td>
+                    </tr>
+
+
+
+
+ <div class="row">
+    <div class="col s2 m6 l6">
+        <div class="card">
+            <div class="card-content" style="padding: 0px;"> 
+            <table id="assigned-user-list" class="responsive-table display" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Group/Individual</th>
+                        <th>Status</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

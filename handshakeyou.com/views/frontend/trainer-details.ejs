@@ -1,0 +1,60 @@
+<%- include('../components/header'); -%>
+<section class="gd-trainers padding-second hk-margin-top-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="gd-trainers-headline gd-headline text-center">
+                    <h3>Our Trainers</h3>
+                    <p>Best in city.</p>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <!-- <div class="row"> -->
+                        <trainer></trainer>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+</section>
+<script id="trainer-data" type="text/html">
+    <div class="col-md-4 col-sm-12 col-lg-4">
+        <div class="gd-trainer-meta">
+            <img src="img/trainers/1.jpg" alt="trainers">
+            <div class="gd-trainer-info">
+                <p><trainer-detail></trainer-detail></p>
+                <ul>
+                    <li><a href="#"><i class="fab trainer-social-icons fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fab trainer-social-icons fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab trainer-social-icons fa-google-plus-g"></i></a></li>
+                    <li><a href="#"><i class="fab trainer-social-icons fa-instagram"></i></a></li>
+                </ul>
+            </div>
+            <div class="gd-trainer-name">
+                <h6><a href="#"><trainer-name></trainer-name> | <trainer-skills></trainer-skills></a></h6>
+            </div>
+        </div>
+    </div>
+</script>
+<%- include('../components/footer'); -%>
+<script src="/ajax/myApp.js"></script>
+<script>
+    $(document).ready(function(){
+        var trainerTask = {
+            renderTrainers:function(data){
+                var $el = $( '<trainer></trainer>' );
+                $el.html($("#trainer-data").text());
+                $('trainer').html('')
+                $.each(data, function(index, list){
+                    $el.find('trainer-name').html(list.name);
+                    $el.find('trainer-skills').html('Gym Trainer')
+                    $('trainer').append($el.html() )
+                });                
+            }
+        }
+
+        app.getAllTrainers().done(function(response){
+            trainerTask.renderTrainers(response.data);
+        });
+
+    });
+</script>

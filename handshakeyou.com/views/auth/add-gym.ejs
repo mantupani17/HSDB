@@ -1,0 +1,354 @@
+<%- include('../components/header'); -%>
+
+    <section class="gd-product padding-default hk-margin-top-100">
+        <div id="exTab3" class="container">
+            <ul class="nav nav-pills">
+                <li class="active" data-tab="new-gym">
+                    <a href="#register-gym" data-toggle="tab">Add new gym</a>
+                </li>
+                <li data-tab="upload">
+                    <a href="#update-dp" data-toggle="tab">Update profile Pic</a>
+                </li>
+                <li data-tab="view-gym">
+                    <a href="#gym-data" data-toggle="tab">View gym data</a>
+                </li>
+                <!-- <li><a href="#4b" data-toggle="tab">Update status</a></li> -->
+            </ul>
+            <div class="tab-content clearfix">
+                <div class="tab-pane active" id="register-gym">
+                    <!-- add gym tab -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div id="gd_contact" class="tab-data">
+                                            <div id="message"></div>
+                                            <div class="gd-contact-form">
+                                                <form class="register" name="gym-registration">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <i class="fas fa-user"></i>
+                                                            <input class='input-style' type='text' name='gName' id='g-name' placeholder="Name" />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <i class="fas fa-mobile"></i>
+                                                            <input class='input-style' type='text' name='mobile' id='mobile' placeholder="Mobile" />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <select name="owner" class='form-control hk-selct-opt' id="owner-detail">
+                                                                <option value="" disabled selected>Choose Owner</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <select name="trainer" class='form-control hk-selct-opt' id="trainer-detail" multiple>
+                                                                <option value="" disabled selected>Choose Trainer</option>
+                                                            </select>
+                                                        </div>
+
+
+                                                        <div class="col-md-6">
+                                                            <i class="fas fa-map-marker-alt"></i>
+                                                            <input class="input-style" type='text' name='pin' id='pin' placeholder="Pin" />
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <i class="fas fa-at"></i>
+                                                            <input name="email" id="email" class="input-style" placeholder="Email" type="text">
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <i class="fas fa-address-book"></i>
+                                                            <textarea class="input-style" placeholder="Address" type='text' name='address' id='address'>
+                                                                    </textarea>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <i class="fas fa-info"></i>
+                                                            <textarea class="input-style" type='text' name='detail' id='detail' placeholder="Detail">
+                                                                    </textarea>
+                                                        </div>
+
+
+                                                        <div class="col-md-6">
+                                                            <button type='submit' name='btn_login' class='btn' style="margin-bottom: 14px;">Register</button>
+                                                        </div>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <!-- add gym tab end -->
+                </div>
+                <div class="tab-pane" id="update-dp">
+                    <center>
+                        <div class="container">
+                            <form name="upload-pic" enctype="multipart/form-data" action="/gymapi/upload-dp" method="POST">
+                                <div class="col-md-6">
+                                    <select name="gym" class='form-control hk-selct-opt' id="gym-detail">
+                                        <option value="" disabled selected>Choose Gym</option>
+                                    </select>
+                                </div>
+                                <div class="avatar-upload">
+                                    <div class="avatar-edit">
+                                        <input type='file' id="imageUpload" name="uploadpic" accept=".png, .jpg, .jpeg" />
+                                        <label for="imageUpload"></label>
+                                    </div>
+                                    <div class="avatar-preview">
+                                        <div id="imagePreview" style="background-image: url('./dps/avatar1.jpg');">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type='submit' class='btn' style="margin-bottom: 14px;">upload</button>
+                                </div>
+                            </form>
+                        </div>
+                    </center>
+                </div>
+
+                <div class="tab-pane" id="gym-data">
+                    <div class="col-md-12 col-sm-12 col-lg-12">
+                    <table class="table table-striped table-contents" id="gym-detail-tbl">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Gym Name</th>
+                                <th>Owner</th>
+                                <th>Trainer</th>
+                                <th>Contact</th>
+                                <th>Address</th>
+                                <th>Detai</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <status-message></status-message>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('../components/footer'); -%>
+        <script src="/js/jquery.validation.js"></script>
+        <script src="/js/jquery.validate.min.js"></script>
+        <script src="/js/sweetalert.min.js"></script>
+        <script src="http://malsup.github.com/jquery.form.js"></script>
+        <script src="/ajax/myApp.js"></script>
+        <script>
+            $(document).ready(function () {
+                var gymTask = {
+                    getTrainers: function () {
+                        app.getAllTrainers().done(function (response) {
+                            gymTask.renderTrainers(response.data);
+                        });
+
+                    },
+                    renderTrainers: function (data) {
+                        var htm = '<option value="" disabled selected>Choose Trainer</option>';
+                        $.each(data, function (index, list) {
+                            var _id = typeof list.id != undefined ? list._id : '';
+                            var name = typeof list.name != undefined ? list.name : '';
+                            var val = _id + '#####' + name;
+                            htm += '<option value="' + val + '">' + name + '</option>';
+                        });
+                        $('#trainer-detail').html(htm);
+                    },
+
+                    getOwners: function () {
+                        app.getAllOwners().done(function (response) {
+                            gymTask.renderOwners(response.data);
+                        });
+                    },
+                    renderOwners: function (data) {
+                        var htm = '<option value="" disabled selected>Choose Owner</option>';
+                        $.each(data, function (index, list) {
+                            var _id = typeof list.id != undefined ? list._id : '';
+                            var name = typeof list.name != undefined ? list.name : '';
+                            var val = _id + '#####' + name;
+                            htm += '<option value="' + val + '">' + name + '</option>';
+                        });
+                        $('#owner-detail').html(htm);
+                    },
+
+                    getAllGymNAmes: function () {
+                        app.viewAllGymNames().done(function (response) {
+                            // console.log(response);
+                            gymTask.renderGyms(response.data);
+                        });
+                    },
+                    renderGyms: function (data) {
+                        var htm = '<option value="" disabled selected>Choose Gym</option>';
+                        $.each(data, function (index, list) {
+                            var _id = typeof list.id != undefined ? list._id : '';
+                            var name = typeof list.gym_name != undefined ? list.gym_name : '';
+                            // var val = _id+'#####'+name;
+                            htm += '<option value="' + _id + '">' + name + '</option>';
+                        });
+                        $('#gym-detail').html(htm);
+                    },
+
+                    gymInitFrm: function () {
+                        $('form[name="gym-registration"]').validate({
+                            rules: {},
+                            messages: {},
+                            errorElement: "div",
+                            errorPlacement: function (error, element) {
+                                var placement = $(element).data('error');
+                                if (placement) {
+                                    $(placement).append(error)
+                                } else {
+                                    error.insertAfter(element);
+                                }
+                            },
+                            submitHandler: function (form) {
+                                var formData = $('form[name="gym-registration"]').serializeObject();
+                                console.log(formData);
+                                app.addNewGym(formData).done(function (response) {
+                                    if (response.status == true) {
+                                        // console.log(response.message);
+                                        $('form[name="gym-registration"]').trigger('reset');
+                                    }
+                                });
+                            }
+                        });
+                    },
+
+                    loadImage: function (input) {
+                        if (input.files && input.files[0]) {
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+                                $('#imagePreview').hide();
+                                $('#imagePreview').fadeIn(650);
+                            }
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    },
+                    getImage: function (gymId) {
+                        app.getGymBanner({ _id: gymId }).done(function (response) {
+                            if (response.status == true) {
+                                var banner = response.banner;
+                                var img = banner.bio.banner;
+                                $('#imagePreview').css('background-image', 'url(./dps/' + img + ')');
+                            } else {
+                                $('#imagePreview').css('background-image', 'url(./dps/avatar1.jpg)')
+                            }
+                        })
+                    },
+
+                    getAllGyms: function () {
+                        app.viewAllGyms().done(function (response) {
+                            gymTask.renderAllGyms(response.data);
+                        });
+                    },
+                    renderAllGyms: function (data) {
+                        $('tbody','#gym-detail-tbl').html('');
+                        var htm = '';
+                        $.each(data, (index, list)=>{
+                            var gymName = list.gym_name != ''?list.gym_name : '-';
+                            var owner = list.bio.owner_name != ''? list.bio.owner_name : '-';
+                            var trainer = typeof list.trainers != 'undefined' ? list.trainers : [];
+                            var trainers = ''
+                            if(trainer.length > 0){
+                                $.each(trainer, (i,l)=>{
+                                    var val = l._id +'####' + l.name;
+                                    if((i+1) == trainer.length){
+                                        trainers +='<trainer-detail val="'+val+'">' + l.name + '</trainer-detail>';
+                                    }else{
+                                        trainers +='<trainer-detail val="'+val+'">' + l.name + ',</trainer-detail>';
+                                    }
+                                });
+                            }
+                            var contact = list.bio.mobile != ''? list.bio.mobile : '-';
+                            var address = list.bio.address != ''? list.bio.address : '-';
+                            var det = list.bio.detail_info != ''? list.bio.detail_info : '-';
+                            var status = list.status != ''? list.status : '';
+                            var state = '<div class="chk-container"><input type="checkbox" gymId="'+list._id+'" data-status="InActive" class="change-state" checked><i class="fas fa-check"></i></div>';
+                            if(status != 'Active'){
+                                state = '<div class="chk-container"><input type="checkbox" gymId="'+list._id+'" data-status="Active" class="change-state"><i class="fas fa-check"></i></div>';
+                            }
+                            htm = '<tr>';
+                            htm += '<td>'+(index+1)+'</td>';
+                            htm += '<td>'+gymName+'</td>';
+                            htm += '<td>'+owner+'</td>';
+                            htm += '<td>'+trainers+'</td>';
+                            htm += '<td>'+contact+'</td>';
+                            htm += '<td>'+address+'</td>';
+                            htm += '<td>'+det+'</td>';
+                            htm += '<td><div>'+state+'</div></td>';
+                            $('tbody','#gym-detail-tbl').append(htm);
+                            gymTask.chageStatus();
+                        });
+                    },
+
+                    chageStatus: function(){
+                        $('.change-state').unbind('change').on('change', function(){
+                            var state = $(this).data('status');
+                            var gymId = $(this).attr('gymId');
+                            app.updateGymStatus({_id:gymId, status:state}).done(function(response){
+                                // $(document).find('status-message').html(response.message);
+                                // $('.alert').show();
+                                alert(response.message);
+                            });
+                        });
+                    }
+
+
+
+                }
+                gymTask.getTrainers();
+                gymTask.getOwners();
+                gymTask.gymInitFrm();
+
+                $("#imageUpload").change(function () {
+                    gymTask.loadImage(this);
+                });
+
+                $('#gym-detail').change(function () {
+                    var gymId = $(this).val();
+                    gymTask.getImage(gymId);
+                });
+
+                $('.nav-pills').on('click', 'li', function () {
+                    var tab = $(this).data('tab');
+                    if (tab == 'upload') {
+                        gymTask.getAllGymNAmes();
+                    } else if (tab == 'view-gym') {
+                        gymTask.getAllGyms();
+                    }
+                });
+
+                $('form[name="upload-pic"]').submit(function (e) {
+                    e.preventDefault();
+                    $(this).ajaxSubmit({
+                        contentType: 'application/json',
+                        success: function (response) {
+                            console.log('image uploaded and form submitted');
+                        }
+                    });
+                    return false;
+                });
+
+            });
+        </script>
+
+        </html>
