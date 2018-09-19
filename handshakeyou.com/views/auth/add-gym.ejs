@@ -305,8 +305,6 @@
                             var state = $(this).data('status');
                             var gymId = $(this).attr('gymId');
                             app.updateGymStatus({_id:gymId, status:state}).done(function(response){
-                                // $(document).find('status-message').html(response.message);
-                                // $('.alert').show();
                                 alert(response.message);
                             });
                         });

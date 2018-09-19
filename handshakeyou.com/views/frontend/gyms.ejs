@@ -1,6 +1,35 @@
 <%- include('../components/header'); -%>
 <section class="gd-product padding-default hk-margin-top-100">
+        <div class="container-fostrap">
+                <div class="content">
+                    <div class="container">
+                        <div>
+                            <gym-card class="row"></gym-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
 </section>
+<script id="gym-card-template" type="text/html">
+            <div class="card">
+                <a class="img-card" href="#">
+                <img src="">
+              </a>
+                <div class="card-content">
+                    <h4 class="card-title">
+                        <a href="#"> <gym-name></gym-name></a>
+                    </h4>
+                    <p class="">
+                        <gym-detail></gym-detail>
+                    </p>
+                </div>
+                <div class="card-read-more">
+                    <a href="#" class="btn btn-link btn-block">
+                        Read More
+                    </a>
+                </div>
+            </div>
+</script>
 <%- include('../components/footer'); -%>
 <script src="/js/jquery.validation.js"></script>
 <script src="/js/jquery.validate.min.js"></script>
@@ -8,8 +37,31 @@
 <script src="/ajax/myApp.js"></script>
 <script>
     $(document).ready(function(){
-        app.viewAllGym().done(function(response){
-            console.log(response);
-        })
+        var gymDetail = {
+            _renderAllGymDetails: function(data){
+                $('gym-card').html('');
+                $.each(data, (index, list)=>{
+                var $el = $('<mp-component class="col-md-4 col-lg-4 col-sm-12"></mp-component>');
+                $el.html($('#gym-card-template').text());
+                $el.find('gym-name').html(list.gym_name);
+                var img = typeof list.bio.banner != undefined ? './dps/'+list.bio.banner : '';
+                $el.find('gym-detail').html(list.bio.detail_info);
+                $el.find('img').attr('src',img);
+                $('gym-card').append($el);
+                console.log($el); 
+                });
+                
+            }
+        }
+
+        var publicApiAjax = {
+            _getGymDetails:function(){
+                app.viewAllGyms().done(function(response){
+                    console.log(response);
+                    gymDetail._renderAllGymDetails(response.data);
+                });
+            }
+        }
+        publicApiAjax._getGymDetails();
     });
 </script>
