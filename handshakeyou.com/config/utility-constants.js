@@ -8,3 +8,9 @@ define({
     developer:'Developer',
     owner:'Owner'
 });
+
+define('PAYMENT_MODE',{
+    COD:"COD",
+    NET_BANKING:"NET BANKING",
+    CARD:"CARD"
+})

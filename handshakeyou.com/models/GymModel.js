@@ -17,7 +17,14 @@ var schema = new Schema({
     },
     trainers:{type:Array,default:[]},
     status:{type:String,default:'Active'},
-    createdAt:{type:Date, default: new Date(+new Date() + 7*24*60*60*1000)},
+    created:{
+        createdBy:{type:String,default:'Admin'},
+        createdAt:{type:Date,default:new Date(+new Date() + 7*24*60*60*1000)}
+    },
+    updated:{
+        updatedBy:{type:String,default:'Admin'},
+        updatedAt:{type:Date,default:new Date(+new Date() + 7*24*60*60*1000)}
+    },
     members:{type:Array,default:[]}
 });
 
