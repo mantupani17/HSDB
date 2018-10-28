@@ -8,7 +8,7 @@ var paymentsSchema = new Schema({
         userName:{type:String}
     },
     paymenttype:{type:String,default:utilConfig.PAYMENT_MODE.COD},
-    payment:{type:Number,default:0},
+    paymentRupees:{type:Number,default:0},
     created:{
         createdBy:{type:String,default:'Admin'},
         createdAt:{type:Date,default:new Date(+new Date() + 7*24*60*60*1000)}
@@ -19,4 +19,20 @@ var paymentsSchema = new Schema({
     }
 });
 
-var PaymentsModel = module.exports = mongoose.model('owner_gym', paymentsSchema);
+var PaymentsModel = module.exports = mongoose.model('user_payments', paymentsSchema);
+
+PaymentsModel.createPaymentDetails = function(eventData, callback ){
+    this.create(eventData, callback);
+}
+
+PaymentsModel.updatePaymentDetails = function(where, eventData, callback ){
+    this.updateMany(where, eventData, callback);
+}
+
+PaymentsModel.deletePaymentDetails = function(where, callback ){
+    this.deleteMany(where, callback);
+}
+
+PaymentsModel.findPaymentDetails = function(where, select, callback ){
+    this.find(where, select, callback);
+}

@@ -16,3 +16,10 @@ var userAttendanceSchema = new Schema({
 });
 
 var UserAttendanceModel = module.exports = mongoose.model('user_attendance', userAttendanceSchema);
+
+UserAttendanceModel.addAttendanceOfUser = function(eventData, callback ){
+    this.create(eventData, callback);
+}
+UserAttendanceModel.findAttendanceOfUser = function(where, select, callback ){
+    this.find(where, select, callback);
+}

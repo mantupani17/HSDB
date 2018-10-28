@@ -15,3 +15,19 @@ var ownerGymSchema = new Schema({
 });
 
 var OwnerGymModel = module.exports = mongoose.model('owner_gym', ownerGymSchema);
+
+OwnerGymModel.addGymToOwner = function(eventData, callback ){
+    this.create(eventData, callback);
+}
+
+OwnerGymModel.updateGymOfOwner = function(where, eventData, callback ){
+    this.updateMany(where, eventData, callback);
+}
+
+OwnerGymModel.deleteGymFromOwner = function(where, callback ){
+    this.deleteMany(where, callback);
+}
+
+OwnerGymModel.findGymOfOwner = function(where, select, callback ){
+    this.find(where, select, callback);
+}

@@ -20,3 +20,19 @@ var eventsSchema = new Schema({
 });
 
 var EventsModel = module.exports = mongoose.model('owner_gym', eventsSchema);
+
+EventsModel.createEvent = function(eventData, callback ){
+    this.create(eventData, callback);
+}
+
+EventsModel.updateEvent = function(where, eventData, callback ){
+    this.updateMany(where, eventData, callback);
+}
+
+EventsModel.deleteEvent = function(where, callback ){
+    this.deleteMany(where, callback);
+}
+
+EventsModel.findEvent = function(where, select, callback ){
+    this.find(where, select, callback);
+}
