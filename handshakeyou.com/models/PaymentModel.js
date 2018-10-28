@@ -21,12 +21,12 @@ var paymentsSchema = new Schema({
 
 var PaymentsModel = module.exports = mongoose.model('user_payments', paymentsSchema);
 
-PaymentsModel.createPaymentDetails = function(eventData, callback ){
-    this.create(eventData, callback);
+PaymentsModel.createPaymentDetails = function(paymentData, callback ){
+    this.create(paymentData, callback);
 }
 
-PaymentsModel.updatePaymentDetails = function(where, eventData, callback ){
-    this.updateMany(where, eventData, callback);
+PaymentsModel.updatePaymentDetails = function(where, paymentData, callback ){
+    this.updateMany(where, paymentData, callback);
 }
 
 PaymentsModel.deletePaymentDetails = function(where, callback ){

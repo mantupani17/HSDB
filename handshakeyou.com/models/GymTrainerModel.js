@@ -16,12 +16,12 @@ var gymTrainerSchema = new Schema({
 
 var GymTrainerModel = module.exports = mongoose.model('owner_gym', gymTrainerSchema);
 
-GymTrainerModel.addTrainerToGym = function(eventData, callback ){
-    this.create(eventData, callback);
+GymTrainerModel.addTrainerToGym = function(gymTrainerData, callback ){
+    this.create(gymTrainerData, callback);
 }
 
-GymTrainerModel.updateTrainerOfGym = function(where, eventData, callback ){
-    this.updateMany(where, eventData, callback);
+GymTrainerModel.updateTrainerOfGym = function(where, gymTrainerData, callback ){
+    this.updateMany(where, gymTrainerData, callback);
 }
 
 GymTrainerModel.deleteTrainerFromGym = function(where, callback ){
