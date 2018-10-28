@@ -89,3 +89,49 @@ module.exports.addNewUser = function(req, res){
         res.json(result);
     });
 }
+
+module.exports.createAdmin = function(){
+    const result = {status:true, message:"User added successfully",data:[]};
+    const admin = {
+        name:'admin',
+        username:'mantu_admin',
+        password:'mantu123',
+        bio:{
+            profilepic:'',
+            experience:0,
+            DOB:new Date(),
+            sex:'Male',
+            height:0,
+            weight:0,
+            bGroup:'A+',
+            mobile:'7873160006',
+            email:'admin@mantu.com',
+            shift:'night',
+            qualification:'MCA',
+            proffession:'FULL STAK DEVELOPER',
+            skinColor:'white',
+            address:{
+                areapin:560068,
+                city:'',
+                state:'',
+                district:'',
+                street:'',
+                fatersname:'',
+                mothersname:'',
+            },
+            gymId:''
+        },
+        roles:['Admin'],
+        lastlogin:new Date()
+    }
+    UsersHelpers.addUser(admin,function(err, user){
+        if(err){
+            console.log(err);
+            // res.json({status:false, message:"Adding user is failed"})
+            throw err;
+        }
+        result.data = user;
+        console.log(result);
+        // res.json(result);
+    });
+}

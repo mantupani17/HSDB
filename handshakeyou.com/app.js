@@ -15,6 +15,8 @@ const usersRouter = require('./routes/User');
 const authoriseRouter = require('./routes/Auth');
 const gymRouter = require('./routes/Gym');
 
+// const UserController = require('./controllers/UsersController');
+// UserController.createAdmin()
 
 
 // set view engine
@@ -41,10 +43,12 @@ app.use('/users',usersRouter);
 app.use('/authorize', authoriseRouter);
 app.use('/gymapi', gymRouter);
 
-// connect to DB
-mongoose.connect(constants.DBPATH);
-var db = mongoose.connection;
+const UsersHelpers = require('./helpers/UsersHelper');
+// const 
 
+// connect to DB
+mongoose.connect(constants.MLAB_DBPATH);
+var db = mongoose.connection;
 
 app.listen(constants.PORT);
 console.log('running on 3000');

@@ -25,5 +25,9 @@ router.get('/api/owners', (req, res)=>{
     UsersController.getAllOwners(req, res);
 });
 
+router.post('/create-admin', (req, res)=>{
+    UsersController.createAdmin(req, res);
+})
+
 
 module.exports = router;
